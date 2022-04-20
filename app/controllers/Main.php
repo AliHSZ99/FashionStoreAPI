@@ -3,28 +3,18 @@ namespace app\controllers;
 
 class Main extends \app\core\Controller{
 
-	public function index(){//listing the records
-		//instead of
-		$myAnimal = new \app\models\Animal();
-
-		$results = $myAnimal->getAll();
-
-		//TODO: we want to get all models to extend a Model base class in app\core.
-		//1- create a Model base class with a constructor method
-		//2- extend this base class in your Animal model
-
-		//note: the paths here are not subject to namespacing because these are NOT classes
-		$this->view('Main/index',$results);
+	public function index(){
+		$this->view('Main/index');
 	}
 
 	public function insert(){//insert a new record ne known PK yet
 		//2 steps
 		//2 get the information from the user and input it in the DB
 		if(isset($_POST['action'])){//verify that the user clicked the submit button
-			$animal = new \app\models\Animal();
-			$animal->setSpecies($_POST['species']);
-			$animal->setColour($_POST['colour']);
-			$animal->insert();
+			// $animal = new \app\models\Animal();
+			// $animal->setSpecies($_POST['species']);
+			// $animal->setColour($_POST['colour']);
+			// $animal->insert();
 			//redirect the user back to the index
 			header('location:/Main/index');
 
@@ -32,31 +22,40 @@ class Main extends \app\core\Controller{
 			$this->view('Main/addAnimal');
 	}
 
+	public function about() {
+		$this->view('Main/about');
+	}
+
+	public function cart() {
+		$this->view('Main/cart');
+	}
+
 	public function delete($animal_id){//delete a record with the known animal_id PK value
-		$animal = new \app\models\Animal;
-		$animal->delete($animal_id);
+		// $animal = new \app\models\Animal;
+		// $animal->delete($animal_id);
 		header('location:/Main/index');
 	}
 
 	public function edit($animal_id){//edit a record for te record with known animal_id PK
-		$animal = new \app\models\Animal;
-		$animal = $animal->get($animal_id);
+		// $animal = new \app\models\Animal;
+		// $animal = $animal->get($animal_id);
 
 		if(isset($_POST['action'])){//am i submitting the form?
 			//handle the input overwriting the existing properties
-			$animal->setSpecies($_POST['species']);
-			$animal->setColour($_POST['colour']);
-			$animal->update();//call the update SQL
+			// $animal->setSpecies($_POST['species']);
+			// $animal->setColour($_POST['colour']);
+			// $animal->update();//call the update SQL
 			//redirect after changes
 			header('location:/Main/index');
 		}else
-			$this->view('Main/edit',$animal);
+			// $this->view('Main/edit',$animal);
+			echo "hello";
 	}
 
 	public function details($animal_id){
-		$animal = new \app\models\Animal;
-		$animal = $animal->get($animal_id);
-		$this->view('Main/details',$animal);
+		// $animal = new \app\models\Animal;
+		// $animal = $animal->get($animal_id);
+		// $this->view('Main/details',$animal);
 	}
 
 

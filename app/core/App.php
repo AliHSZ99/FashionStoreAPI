@@ -47,17 +47,17 @@ class App{
 
 		//apply access filtering
 		//get the attributes
-		$reflection = new \ReflectionObject($this->controller);
-		$controllerAttributes = $reflection->getAttributes();
-		$methodAttributes = $reflection->getMethod($this->method)->getAttributes();
-		//merge
-		$filters = array_values(array_filter(array_merge($controllerAttributes, $methodAttributes)));
-		//invoke the filter methods
-		foreach($filters as $filter){
-			$filter = $filter->newInstance();
-			if($filter->execute())
-				return;//stop execution before the call_user_func_array method runs
-		}
+		// $reflection = new \ReflectionObject($this->controller);
+		// $controllerAttributes = $reflection::getAttributes();
+		// $methodAttributes = $reflection->getMethod($this->method)::getAttributes();
+		// //merge
+		// $filters = array_values(array_filter(array_merge($controllerAttributes, $methodAttributes)));
+		// //invoke the filter methods
+		// foreach($filters as $filter){
+		// 	$filter = $filter->newInstance();
+		// 	if($filter->execute())
+		// 		return;//stop execution before the call_user_func_array method runs
+		// }
 
 		//run this command below:
 		call_user_func_array(array($this->controller, $this->method), $this->params);
