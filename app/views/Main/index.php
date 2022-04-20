@@ -24,7 +24,7 @@
 	<div>
 		<nav class="navbar navbar-expand-sm" style="background: black;">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="javascript:void(0)"><img style="height: 70px;" src="/app/images/logo.png" alt=""></a>
+				<a class="navbar-brand" href="/Main/index"><img style="height: 70px;" src="/app/images/logo.png" alt=""></a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -42,7 +42,7 @@
 						<li class="nav-item">
 							<a class="nav-link text-white h3" href="/Main/login" style="margin-right: 80px;">Login</a>
 						</li>
-						<li class="nav-item" style="margin-right: 80px; margin-top: 10px">
+						<li class="nav-item" style="margin-right: 80px; margin-top: 5px">
 							<a class="nav-link text-white h3" href="/Main/cart"><ion-icon name="cart-outline"></ion-icon></a>
 						</li>
 					</ul>

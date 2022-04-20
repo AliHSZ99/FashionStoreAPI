@@ -1,0 +1,143 @@
+#loginBody {
+    font-family:     futura pt,Tahoma, Geneva, Verdana, Arial,sans-serif;
+}
+
+/* This is for the black background of the Problem Solver's Logo in Login page and Sign Up page */
+#backgroundPSLogo {
+    background-color:black; 
+    height: 100px; 
+    width: 600px;
+    margin-top: 5%;
+    margin-left: 35%;
+}
+
+/* This is for the Problem Solver's logo in Login page and Sign Up page */
+#loginPSLogo {
+    margin-top: 3%;
+    margin-left: 8.5%; 
+}
+
+/* The container box of Login and Sign Up form */
+#loginBox {
+    width: 600px;
+    margin-left: 35%;   
+    background: white;
+}
+
+/* Navigation Bar in the login and sign up page */
+.loginNav {
+    border-bottom: 2px solid #f1f1f1;
+    border-right: 2px solid #f1f1f1;
+    width: 290px;
+    text-align: center;
+}
+
+/* To remove the right border on the last child the navigation bar */
+.loginNavList li:last-child {
+    border-right: none;
+}
+
+/* For the login button */
+#loginButton {
+    background: #2d2d2d;
+    color: #fff;
+    font-family: Tahoma,Arial,sans-serif;
+    width: 320px;
+}
+
+/* When the user hovers on the  */
+#loginButton:hover {
+    background-color: #535151;
+}
+
+/* For the login form */
+#loginForm {
+    margin-top: 4%;
+    margin-left: 20%;
+    font-size: 30px;
+    font-family: futura pt,Tahoma, Geneva, Verdana, Arial,sans-serif;
+    height: 500px;
+}
+
+/* For the forgot password in the Login Page */
+#loginForm a {
+    text-decoration: none;
+    color: black;
+    position: absolute;
+    margin-top: 1%;
+    margin-left: 3.5%;
+}
+
+#loginForm a:hover {
+    text-decoration: underline;
+    color: rgb(138, 137, 137);
+    
+}
+
+/* For the register form */
+#registerForm{
+    margin-top: 2%;
+    margin-left: 20%;
+    font-size: 20px;
+    font-family: futura pt,Tahoma, Geneva, Verdana, Arial,sans-serif;
+    height: 500px;
+}
+
+#registerForm input{
+    width: 320px ;
+}
+
+/* For the login button */
+#registerButton {
+    background: #2d2d2d;
+    color: #fff;
+    font-family: Tahoma,Arial,sans-serif;
+    width: 320px;
+    margin-top: 3%;
+}
+
+/* When the user hovers on the  */
+#registerButton:hover {
+    background-color: #535151;
+}
+
+/* For the cart title */
+#cartTitle {
+    text-align: center; 
+    font-family: futura pt,Tahoma, Geneva, Verdana, Arial,sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+/* For the cart table in the cart page */
+#cartTable {
+    height: 500px;
+    overflow: scroll;
+    overflow-x: hidden;
+    width: 50%;
+    margin-left: 25%;
+}
+
+/* The div for the total price and check out button */
+#checkoutAndPriceBox{
+    width: 50%;
+    margin-left: 25%;
+    height: 100px;  
+}
+
+#priceBox {
+    width: 320px;
+    height: 50px;
+}
+
+#priceBox p {
+    font-size: 40px;
+}
+
+#checkoutButton {
+    background: #2d2d2d;
+    color: #fff;
+    font-family: Tahoma,Arial,sans-serif;
+    width: 300px;
+    height: 50px;
+}

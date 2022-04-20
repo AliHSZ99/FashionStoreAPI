@@ -21,7 +21,7 @@
     <div>
     <nav class="navbar navbar-expand-sm" style="background: black;">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="javascript:void(0)"><img style="height: 70px;" src="/app/images/logo.png" alt=""></a>
+				<a class="navbar-brand" href="/Main/index"><img style="height: 70px;" src="/app/images/logo.png" alt=""></a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
 					<span class="navbar-toggler-icon"></span>
 				</button>
