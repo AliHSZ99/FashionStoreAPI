@@ -1,29 +1,44 @@
 <?php
 namespace app\controllers;
 
-class Main extends \app\core\Controller{
+require_once('C:\\xampp\\htdocs\\vendor\\autoload.php');
 
-	public function index(){
+class Main extends \app\core\Controller {
+
+	public function index()
+	{
 		$this->view('Main/index');
 	}
 
-	public function insert(){//insert a new record ne known PK yet
-		//2 steps
-		//2 get the information from the user and input it in the DB
-		if(isset($_POST['action'])){//verify that the user clicked the submit button
-			// $animal = new \app\models\Animal();
-			// $animal->setSpecies($_POST['species']);
-			// $animal->setColour($_POST['colour']);
-			// $animal->insert();
+	public function insert()
+	{
+		if(isset($_POST['action']))
+		{
 			//redirect the user back to the index
 			header('location:/Main/index');
 
-		}else //1 present a form to the user
+		} else //1 present a form to the user
 			$this->view('Main/addAnimal');
 	}
 
-	public function about() {
+	public function about() 
+	{
 		$this->view('Main/about');
+		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
+		$data = json_encode(array("clientID"=>"1", "requestDate"=>"12/14/21", "requestCompletionDate"=>"12/14/21",
+	 	"originalFormat"=> ".mp4", "targetFormat"=> ".avi", "inputFile"=> "C:\\xampp\htdocs\\testvideo.mp4" , "APIKey"=> "1234" ));
+		$requestOne = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json']];
+		//$requestTwo = ['body' => $data, 'headers' => ['accept' => 'application/json']];
+		//GET
+		$response = $client->request('GET', 'item/1', $requestOne);
+		//POST
+		//$response = $client->request('POST', 'video/convert', $requestTwo);
+		var_dump($response);
+	
+	$contents = $response->getBody()->getContents();
+	echo $contents;
+	//$decoded = json_decode($contents); 
+	//echo $decoded->licenseNumber;
 	}
 
 	public function cart() {
@@ -42,9 +57,6 @@ class Main extends \app\core\Controller{
 
 		if(isset($_POST['action'])){//am i submitting the form?
 			//handle the input overwriting the existing properties
-			// $animal->setSpecies($_POST['species']);
-			// $animal->setColour($_POST['colour']);
-			// $animal->update();//call the update SQL
 			//redirect after changes
 			header('location:/Main/index');
 		}else
@@ -53,8 +65,6 @@ class Main extends \app\core\Controller{
 	}
 
 	public function details($animal_id){
-		// $animal = new \app\models\Animal;
-		// $animal = $animal->get($animal_id);
 		// $this->view('Main/details',$animal);
 	}
 

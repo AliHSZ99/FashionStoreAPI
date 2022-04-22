@@ -53,7 +53,6 @@
 				<p>Username:</p> <input type='text' name='username' /><br>
 				<p>Password:	</p> <input type='password' name='password' /><br> <br>
 				<input id='loginButton' type='submit' name='action' value='Login' />
-				<p><a href="">Forgot Password?</a></p>
 			</form>
 		</div>
 	</div>

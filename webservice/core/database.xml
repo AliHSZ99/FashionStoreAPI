@@ -1,0 +1,6 @@
+<dbconnection>
+    <host>localhost</host>
+    <user>root</user>
+    <password></password>
+    <dbname>fashionstoredb</dbname>
+</dbconnection>
