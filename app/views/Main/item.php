@@ -15,7 +15,7 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
     <!-- For CSS stylesheet -->
-	<link rel="stylesheet" href="app/styles.css">
+	<link rel="stylesheet" href="/app/styles.css">
 	<title>FashionStoreAPI</title>
 </head>
 
@@ -40,7 +40,7 @@
 							<a class="nav-link text-white h3" href="/Main/about" style="margin-right: 80px;">About</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white h3" href="/Main/login" style="margin-right: 80px;">Sign In</a>
+							<a class="nav-link text-white h3" href="/Main/login" style="margin-right: 80px;">Login</a>
 						</li>
 						<li class="nav-item" style="margin-right: 80px; margin-top: 5px">
 							<a class="nav-link text-white h3" href="/Main/cart"><ion-icon name="cart-outline"></ion-icon></a>
@@ -51,44 +51,34 @@
 		</nav>
 	</div>
 
-
-	<!-- Product items and Filter -->
-	<div>
-		<!-- Product items -->
-		<div>
-			<div class="container">
-				<!-- This div make sure that there's only three items per row -->
-				<div class="row row-cols-3 items">
-					<!-- Add the for loop here to add more items -->
-					<!-- Put the div with class called col inside of the for loop -->
-					<div class="col">
-						<div class="itemBox">
-							<img src="/app/images/jeremie.jpg">
-							<br>
-							<a class="h4" href="/Main/quickShopButton">I Love Mayuri Shirt</a>
-							<p>$69.69</p>
-							
-							<input class='quickShop' type='submit' name='action' value='Quick Shop' />
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-		<!-- Filters -->
-		<div id="filterBox">
-			<div class="container">
-				<div class="row">
-					<h1>FILTER</h1>
-					<a href="#">Shirts</a>
-					<a href="#">Pants</a>
-					<a href="#">Shoes</a>
-					<a href="#">Hats</a>
-					<a href="#">Vests</a>
-				</div>
-			</div>
-		</div>
+    <!-- This div is for the item -->
+	<div id="itemContainerBox">
+		<div class="row">
+            <div class="col">
+                <img id="itemImage" src="/app/images/shirt.jpg" alt="">
+            </div>
+            <!-- Production Information -->
+            <div class="col productInfo">
+                <div class="container">
+                    <div class="row">
+                       <h2>UO Big Corduroy Work Shirt</h2>
+                       <h2>Brown</h2>
+                       <div class="btn-group me-2" role="group" aria-label="Second group">
+                            <button type="button" class="btn btn-outline-secondary">S</button>
+                            <button type="button" class="btn btn-outline-secondary">M</button>
+                            <button type="button" class="btn btn-outline-secondary">L</button>
+                            <button type="button" class="btn btn-outline-secondary">XL</button>
+                        </div>
+                       <h2>$69.99</h2>
+                       <button id="addToCartButton">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Go Back Button -->
+            <div class="col">
+                <a href="/Main/index"><button class="btn btn-outline-secondary">Go Back</button></a>
+            </div>
+        </div>
 	</div>
 	
 </body>

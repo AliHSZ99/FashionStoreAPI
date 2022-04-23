@@ -141,3 +141,125 @@
     width: 300px;
     height: 50px;
 }
+
+/* To make it scrollable */
+.items {
+    height: 700px;
+    overflow: scroll;
+    overflow-x: hidden;
+    max-width:1050px;
+	margin:5% auto;
+}
+
+/* The box per items */
+.items .itemBox {
+    position: relative;
+	max-width: 260px;
+	margin: 15px auto;
+	padding: 5px;
+	text-align: center;
+	border-radius: 4px;
+	overflow: hidden;
+	border:2px solid #eee;
+    background-color: #535151;
+    color: white;
+}
+
+/* Change the image of the items */
+.items .itemBox img{
+    width: 150px;
+    height: 150px;
+    margin-top: 5%;
+}
+
+/* Product name */
+.items .itemBox a{
+    text-decoration: none;
+    color: white;
+}
+
+/* Quick Shop Button */
+.items .itemBox .quickShop {
+    background-color:  #535151;
+    color: white;
+}
+
+.items .itemBox .quickShop:hover {
+    background-color: #746e6e;
+}
+
+/* For the filter */
+#filterBox {
+position: absolute;
+  background-color: #2d2d2d;
+  width: 150px;
+  height: 290px;
+  color: white;
+  margin-top: -40%;
+  margin-left: 80%;
+  text-align: center;
+  font-size: 30px;
+  border-radius: 3%;
+}
+
+#filterBox h1 {
+    border-bottom: white solid 2px;
+}
+
+#filterBox a {
+    text-decoration: none;
+    color: white;
+    border-bottom: white solid 2px;
+}
+
+#filterBox a:last-child {
+    border-bottom: none;
+}
+
+#filterBox a:hover {
+    color: rgb(17, 7, 7);
+}
+
+/* This is for the item box in item.php */
+#itemContainerBox {
+    position: relative;
+    width: 80%;
+    height: 700px;
+    margin-left: 20%;
+    margin-top: 8%; 
+    background-color: white;
+    color: black;
+}
+
+/* For item image in item.php */
+#itemImage{
+    width: 400px;
+    height: 400px;
+    margin-top: 15%;
+    margin-left: 5%;
+}
+
+.productInfo{   
+    text-align: center;
+    margin-top: 8%;
+    width: 20px;
+}
+
+.productInfo h2 {
+    margin-top: 30px;
+}
+
+/* For add to cart button */
+#addToCartButton {
+    position: absolute;
+    background-color: #2d2d2d;
+    color: #fff;
+    width: 300px;
+    height: 50px;
+    margin-left: 5%;
+    margin-top: 18%;
+}
+
+#addToCartButton:hover {
+    background-color: #535151;
+}

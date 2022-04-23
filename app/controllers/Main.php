@@ -133,4 +133,9 @@ class Main extends \app\core\Controller {
 		header('location:/Main/login');
 	}
 
+	// This method is for testing purpsoses only
+	public function quickShopButton(){
+		$this->view('Main/item');
+	}
+
 }
