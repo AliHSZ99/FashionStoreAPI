@@ -25,14 +25,18 @@ class Main extends \app\core\Controller {
 	{
 		$this->view('Main/about');
 		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
-		$data = json_encode(array("clientID"=>"1", "requestDate"=>"12/14/21", "requestCompletionDate"=>"12/14/21",
-	 	"originalFormat"=> ".mp4", "targetFormat"=> ".avi", "inputFile"=> "C:\\xampp\htdocs\\testvideo.mp4" , "APIKey"=> "1234" ));
+		/*
+		The type of data we would send is: item info, apikey.. we could make cart a part of the api
+		*/
+		// $data = json_encode(array("clientID"=>"1", "requestDate"=>"12/14/21", "requestCompletionDate"=>"12/14/21",
+	 	// "originalFormat"=> ".mp4", "targetFormat"=> ".avi", "inputFile"=> "C:\\xampp\htdocs\\testvideo.mp4" , "APIKey"=> "1234" ));
 		$requestOne = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json']];
 		//$requestTwo = ['body' => $data, 'headers' => ['accept' => 'application/json']];
 		//GET
 		$response = $client->request('GET', 'item/1', $requestOne);
 		//POST
 		//$response = $client->request('POST', 'video/convert', $requestTwo);
+		//remove this if you want to work on about.
 		var_dump($response);
 	
 	$contents = $response->getBody()->getContents();
