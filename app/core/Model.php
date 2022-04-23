@@ -9,11 +9,10 @@ class Model{
 		$username = 'root';
 		$password = '';
 		$host = 'localhost';//where we find the MySQL DB server
-		$DBname = ''; //the DB name for your Web application
-
+		$DBname = 'fashionstoredb'; //the DB name for your Web application
 
 		//connect the objects to the storage medium
-		if(self::$_connection == null){
+		if (self::$_connection == null) {
 			self::$_connection = new \PDO("mysql:host=$host;dbname=$DBname",$username,$password);
 		}
 	}

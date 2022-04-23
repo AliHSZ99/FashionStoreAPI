@@ -1,7 +1,7 @@
 <?php
 namespace app\controllers;
 
-require_once('C:\\xampp\\htdocs\\vendor\\autoload.php');
+include "\\xampp\\htdocs\\vendor\\autoload.php";
 
 class Main extends \app\core\Controller {
 
@@ -72,38 +72,58 @@ class Main extends \app\core\Controller {
 		// $this->view('Main/details',$animal);
 	}
 
+	public function generateApiKey() {
+		return "fashionstore". uniqid();
+	}
 
 	public function register(){
 
-		if(isset($_POST['action']) && $_POST['password'] == $_POST['password_confirm']){//verify that the user clicked the submit button
-			$user = new \app\models\User();
-			$user->username = $_POST['username'];
-			$user->password = $_POST['password'];
-			$user->insert();//password hashing done here
-			//redirect the user back to the index
-			header('location:/Main/login');
+		if (isset($_POST['action'])) {//verify that the user clicked the submit button
+			$guest = new \app\models\Guest();
+			$guest->email = $_POST['email'];
 
-		}else //1 present a form to the user
+			if ($guest->emailExists() > 0) {
+				$this->view('Main/register', 'The Email already exists...');
+				return;
+			}
+
+			$guest->first_name = $_POST['first'];
+			$guest->last_name = $_POST['last'];
+			$guest->phone_number = $_POST['phone'];
+			$password = $_POST['password'];
+			$passwordConfirm = $_POST['password_confirm'];
+
+			if ($password == $passwordConfirm) {
+				$guest->password = $password;
+				$guest->api_key = $this->generateApiKey();
+				$guest->insertGuest();
+				$this->view("Main/login");
+			} else {
+				$this->view("Main/register", "Passwords do not match...");
+				return;
+			}
+		} else {
 			$this->view('Main/register');
+		}
 	}
 
 	
 	public function login(){
-		//TODO: register session variables to stay logged in
-		if(isset($_POST['action'])){//verify that the user clicked the submit button
-			$user = new \app\models\User();
-			$user = $user->get($_POST['username']);
+		if (isset($_POST['action'])) {
+			$guest = new \app\models\Guest();
+			$guest = $guest->getGuestByEmail($_POST['email']);
 
-			if($user!=false && password_verify($_POST['password'], $user->password_hash)){
-				$_SESSION['user_id'] = $user->user_id;
-				$_SESSION['username'] = $user->username;
-				header('location:/Secure/index');
-			}else{
-				$this->view('Main/login','Wrong username and password combination!');
+			if ($guest != false && password_verify($_POST['password'], $guest->password_hash)) {
+				$_SESSION['user_id'] = $guest->guest_id;
+				$_SESSION['email'] = $guest->email;
+				header('location:/Main/index');
+			} else {
+				$this->view('Main/login', 'Wrong username and password combination!');
+				return;
 			}
-
-		}else //1 present a form to the user
+		} else {
 			$this->view('Main/login');
+		}
 	}
 
 

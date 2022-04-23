@@ -10,11 +10,10 @@ namespace app\core;
 class App{
 
 	private $controller = 'app\\controllers\\Main'; //set a default value for the controller
-	private $method = 'login';
+	private $method = 'index'; //set a default value for the method
 	private $params = [];
 
 	public function __construct(){
-		//TODO: implement the routing to map the URL to the actual controllers and methods
 		//map urls such as localhost/controllername/methodname to the execution of method methodname from class controllername
 		//eg. http://localhost/Main/index maps to the index method of the Main controller class
 		//e.g. http://localhost/Animal/breed/param1/param2
@@ -45,6 +44,7 @@ class App{
 		//take care of any parameter
 		$this->params = $url ? array_values($url) : [];
 
+		// We do not implement any filters for this project, it is not the main goal ...
 		//apply access filtering
 		//get the attributes
 		// $reflection = new \ReflectionObject($this->controller);

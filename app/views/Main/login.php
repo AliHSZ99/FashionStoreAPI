@@ -19,16 +19,9 @@
 
     <!-- For CSS stylesheet -->
 	<link rel="stylesheet" href="/app/styles.css">
-	<title>Login</title>
+	<title>Sign In</title>
 </head>
 <body id="loginBody" >
-	<?php
-	if($data != null){
-		echo $data;
-	}
-	?>
-
-
 	<!-- Div for the logo -->
 	<div id="backgroundPSLogo">
 		<a href="/Main/index"><img  id="loginPSLogo" style="height: 70px;" src="/app/images/logo.png" alt=""></a>
@@ -50,10 +43,15 @@
 	</nav>
 		<div id = "loginForm">
 			<form id="form"action='' method='post'>
-				<p>Username:</p> <input type='text' name='username' /><br>
-				<p>Password:	</p> <input type='password' name='password' /><br> <br>
-				<input id='loginButton' type='submit' name='action' value='Login' />
+				<p>Email: </p> <input type='text' name='email' required/><br>
+				<p>Password: </p> <input type='password' name='password' required/><br> <br>
+				<input id='loginButton' type='submit' name='action' value='Login' required/>
 			</form>
+			<?php
+			if($data != null){
+				echo $data;
+			}
+			?>
 		</div>
 	</div>
 </body>

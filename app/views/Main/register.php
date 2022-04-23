@@ -41,15 +41,18 @@
 		</div>
 	</nav>
 		<div id = "registerForm">
-			<form id="form"action='' method='post'>
-				<p>Email:</p> <input type='text' name='email' /><br>
-				<p>First Name:</p> <input type='text' name='firstname' /><br>
-				<p>Last Name:</p> <input type='text' name='lastname' /><br>
-				<p>Phone Number:</p> <input type='text' name='phonenumber' /><br>
-				<p>Password:</p>  <input type='password' name='password' /><br>
-				<p>Password confirmation:</p> <input type='text' name='password_confirm' /><br>
-				<input id="registerButton" type='submit' name='action' value='Register' />
+			<form action='' method='post'>
+				<p>Email:</p> <input type='text' name='email' required/><br>
+				<p>First Name:</p> <input type='text' name='first' required/><br>
+				<p>Last Name:</p> <input type='text' name='last' required/><br>
+				<p>Phone Number:</p> <input type='text' name='phone' required/><br>
+				<p>Password:</p>  <input type='password' name='password' required/><br>
+				<p>Password confirmation:</p> <input type='password' name='password_confirm' required/><br>
+				<input id="registerButton" type='submit' name='action' value='Register' required/>
 			</form>
+		<?php
+			echo $data;
+		?>
 		</div>
 	</div>
 </body>

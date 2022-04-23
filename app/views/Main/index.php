@@ -40,7 +40,7 @@
 							<a class="nav-link text-white h3" href="/Main/about" style="margin-right: 80px;">About</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white h3" href="/Main/login" style="margin-right: 80px;">Login</a>
+							<a class="nav-link text-white h3" href="/Main/login" style="margin-right: 80px;">Sign In</a>
 						</li>
 						<li class="nav-item" style="margin-right: 80px; margin-top: 5px">
 							<a class="nav-link text-white h3" href="/Main/cart"><ion-icon name="cart-outline"></ion-icon></a>
