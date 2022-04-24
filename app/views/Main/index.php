@@ -59,6 +59,7 @@
 			<div class="container">
 				<!-- This div make sure that there's only three items per row -->
 				<div class="row row-cols-3 items">
+					<!-- The code for the items has been done. Simply use retrieveItems() method and for-loop them all here -->
 					<!-- Add the for loop here to add more items -->
 					<!-- Put the div with class called col inside of the for loop -->
 					<div class="col">
