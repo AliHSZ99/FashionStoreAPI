@@ -4,11 +4,11 @@ namespace app\controllers;
 include "\\xampp\\htdocs\\vendor\\autoload.php";
 
 class Main extends \app\core\Controller {
-
-	$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
-
+	
+	
 	public function index()
 	{
+		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
 		$guest = new \app\models\Guest();
 		$email = $_POST["guest_id"];
 		$guest = $guest->getGuestByEmail($email);
@@ -59,8 +59,8 @@ class Main extends \app\core\Controller {
 		// //remove this if you want to work on about.
 		// var_dump($response);
 	
-	$contents = $response->getBody()->getContents();
-	echo $contents;
+	// $contents = $response->getBody()->getContents();
+	// echo $contents;
 	//$decoded = json_decode($contents); 
 	//echo $decoded->licenseNumber;
 	}

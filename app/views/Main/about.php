@@ -47,6 +47,12 @@
 			</div>
 		</nav>
 	</div>
+	
+	<center>
+		<div>
+			<img src="/app/images/about.png" style="width: 60%; margin-top: 5%" alt="">
+		</div>
+	</center>
 
 </body>
 
