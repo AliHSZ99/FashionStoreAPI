@@ -76,6 +76,8 @@
 						</div>
 					";
 					}
+
+					// echo $data . "asd";
 					?>
 					<!-- <div class="col">
 						<div class="itemBox">

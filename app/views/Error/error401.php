@@ -24,7 +24,7 @@
 <body id="loginBody" >
 	<!-- Div for the logo -->
 	<div id="backgroundPSLogo">
-		<a href="/Main/index"><img  id="loginPSLogo" style="height: 70px;" src="/app/images/logo.png" alt=""></a>
+		<a href="/Main/login"><img  id="loginPSLogo" style="height: 70px;" src="/app/images/logo.png" alt=""></a>
 	</div>
 	
 	<!-- Div for the loginBox -->
@@ -33,26 +33,17 @@
 		<div class="container-fluid d-flex">
 			<ul class="navbar-nav loginNavList">
 				<li class="nav-item loginNav" style="border-bottom: none">
-					<a class="nav-link h3" href="/Main/settings" style="margin-left: 80%">Settings</a>
+					<a class="nav-link h3" href="/ErrorPages/error401" style="margin-left: 80%">Error</a>
 				</li>
 			</ul>
 		</div>
 	</nav>
 		<div id = "loginForm">
-			<p>Api Key: </p> <input type='text' class='' style='height: 50px; width: 360px;' name='apikey' value='fashionstore626452eebdc0a' disabled/><br>
-			
-			<form action="" method="post">
-				<p>New Password: </p> <input type='password' style="height: 50px; width: 360px;" name='password' required/><br> <br>
-				<input id='loginButton' style="margin-left: 30%; margin-bottom: -80%; width: 220px; border-radius: 10%; height: 30px; font-size: 16px" type="submit" name='newPasswordClicked' value="Confirm new password">
-				<?php
-					if ($data != null) {
-						echo $data;
-					}
-				?>
-			</form>
-			<form id="form" action='' method='post'>
-				<input id='loginButton' type='submit' name='action' value='Logout' required/>
-			</form>
+            <center style="margin-right: 25%;">
+                <h2>ACCESS DENIED</h2>
+                <p>You are trying to access a page you are not authorized to access! </p> <br>
+            </center>
+
 		</div>
 	</div>
 </body>

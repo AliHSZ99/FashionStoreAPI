@@ -16,7 +16,6 @@ class Auth {
 
         $client = new \webservice\model\Client();
         $client->api_key = $theRequest->apikey;
-
         
         $client = $client->getClientByAPIKey();
 
@@ -40,10 +39,6 @@ class Auth {
         
         // generate token
         $jwt = JWT::encode($payload, $key, 'HS256');
-        // $client->addToken($jwt);
-
-        // $client = json_encode($client);
-        // echo $client;
         
         // headers of the response. 
         header("WWWW-Authenticate: Bearer $jwt");

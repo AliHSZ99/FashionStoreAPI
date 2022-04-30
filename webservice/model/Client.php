@@ -6,14 +6,13 @@ require(dirname(__DIR__)."\\core\\Model.php");
 
 class Client extends \webservice\core\Model {
 
-    public $clientID;
+    public $client_id;
     public $api_key;
-    public $token;
 
     public function insertClient(){
-      $SQL = 'INSERT INTO client(api_key, token) VALUES (:api_key, :token)';
+      $SQL = 'INSERT INTO client(api_key) VALUES (:api_key)';
       $STMT = self::$_connection->prepare($SQL);
-      $STMT->execute(['api_key' => $this->api_key, 'token' => $this->token]);
+      $STMT->execute(['api_key' => $this->api_key]);
 	  }
 
     public function get($clientID) {
@@ -32,10 +31,10 @@ class Client extends \webservice\core\Model {
       return $STMT->fetch();
     }
 
-    public function addToken($token) {
+    public function addToken() {
       $SQL = "UPDATE client SET token = :token WHERE api_key = :api_key";
       $STMT = self::$_connection->prepare($SQL);
-      $STMT->execute(['token' => $token, 'api_key' => $this->api_key]);
+      $STMT->execute(['token' => $this->token, 'api_key' => $this->api_key]);
     }
 
 }

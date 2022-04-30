@@ -2,6 +2,11 @@
 
 require(dirname(__DIR__)."\\model\\Item.php");
 
+include "\\xampp\\htdocs\\vendorJWT\\autoload.php";
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
     class Item {
 
         function getData($ID) {
@@ -19,11 +24,23 @@ require(dirname(__DIR__)."\\model\\Item.php");
         }
 
         function getAllData() {
+            $headers = apache_request_headers();
+            // var_dump($headers);
+		
+            $authorizationHeader = $headers["Authorization"];
+            $authorizationParts = explode(" ", $authorizationHeader);
+            $key = "ali";
+            $jwt = $authorizationParts[1];
 
+            try {
+                $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
+            } catch (Exception $e) {
+                echo "Invalid Token";
+            }
+            
             header('content-type: application/json');
             $items = new \webservice\model\Item();
             $items = $items->getItems();
-            $itemsPayload = array();
             foreach ($items as $item) {
                 $addArray = array();
                 $addArray["item_id"] = strval($item->item_id);
@@ -38,6 +55,7 @@ require(dirname(__DIR__)."\\model\\Item.php");
             $itemsPayload = json_encode($itemsPayload);
 
             return $itemsPayload;
+            // return $headers;
         }
 
         public function populateItemTable() {

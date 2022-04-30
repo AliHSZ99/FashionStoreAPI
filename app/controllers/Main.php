@@ -5,12 +5,12 @@ include "\\xampp\\htdocs\\vendor\\autoload.php";
 
 class Main extends \app\core\Controller {
 	
-	
 	public function index()
 	{
 		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
 		$guest = new \app\models\Guest();
 		$guest = $guest->getGuestByEmail($_SESSION["email"]);
+		$tokenWithBearer = "";
 		if ($guest->token == "") {
 			// echo "hello";
 			$POST = ["guest_id" => $_SESSION["guest_id"], "apikey" => $guest->api_key];
@@ -23,27 +23,32 @@ class Main extends \app\core\Controller {
 			$response = $client->request("POST", "auth/index", $request);
 			print_r($response);
 
-			$body = $response->getBody()->getContents();
+			// $body = $response->getBody()->getContents();
 			// $arr_body = json_decode($body, true);
 			// print_r($arr_body);
 
 			// $headers = $response->getHeaders();
 			// print_r($headers);
 
-			$a = $response->getHeader('WWWW-Authenticate');
-
-			echo "<br><br>";
-
-			print_r($a);
-			// var_dump($authHeader);
-
-
+			$tokenWithBearer = $response->getHeader('WWWW-Authenticate')[0];
+			$splitToken = explode(" ", $tokenWithBearer);
+			// echo "<br>";
+			// print_r($tokenWithBearer);
+			$token = $splitToken[1];
+			$guest->token = $token;
+			$guest->addToken();
 		}
 
-		$request = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json']];
+		$tokenWithBearer = "Bearer ".$guest->token;
+		$request = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json', 'Authorization' => $tokenWithBearer]];
+		// echo "<br><br><br>". $tokenWithBearer;
 		$response = $client->request('GET', 'item/getAll', $request);
 		$contents = $response->getBody()->getContents();
 		$contents = json_decode($contents);
+		if (!is_array($contents)) {
+			header("location: /ErrorPages/error401");
+		}
+
 		$this->view('Main/index', $contents);
 	}
 
