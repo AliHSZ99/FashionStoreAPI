@@ -1,0 +1,7 @@
+[2022-05-01T00:59:13.663473+02:00] my_logger.INFO: A token has been generated for client with API key: fashionstore626dbf3e82034 [] []
+[2022-05-01T01:00:25.277209+02:00] my_logger.INFO:  A token has been generated for client with API key: fashionstore626dbf86d12cb [] []
+[2022-05-01T01:02:10.334702+02:00] my_logger.INFO:  A token has been generated for client with API key: fashionstore626dbff073674 [] []
+[2022-05-01T01:04:32.237599+02:00] my_logger.INFO:  A token has been generated for client with API key: fashionstore626dc07dad65d [] []
+[2022-05-01T01:09:34.509389+02:00] my_logger.INFO:  A client has been added to the database with API key: fashionstore626dc1ae555b0 [] []
+[2022-05-01T01:09:36.858206+02:00] my_logger.INFO:  A token has been generated for client with API key: fashionstore626dc1ae555b0 [] []
+[2022-05-01T01:09:36.915435+02:00] my_logger.INFO:  The data of the store has been retrieved and is ready to be sent to the client [] []

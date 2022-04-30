@@ -3,7 +3,11 @@
 require(dirname(__DIR__)."\\model\\Item.php");
 
 include "\\xampp\\htdocs\\vendorJWT\\autoload.php";
+include "\\xampp\\htdocs\\vendorLogger\\autoload.php";
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Handler\FirePHPHandler;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -24,6 +28,12 @@ use Firebase\JWT\Key;
         }
 
         function getAllData() {
+            // Create the logger
+            $logger = new Logger('my_logger');
+            // Now add some handlers
+            $logger->pushHandler(new StreamHandler('/xampp/htdocs/webservice/webservice.log', Logger::DEBUG));
+            $logger->pushHandler(new FirePHPHandler());
+
             $headers = apache_request_headers();
             // var_dump($headers);
 		
@@ -36,8 +46,11 @@ use Firebase\JWT\Key;
                 $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
             } catch (Exception $e) {
                 echo "Invalid Token";
+                $logger->error("\nInvalid Token was used");
             }
             
+            $logger->info("\nThe data of the store has been retrieved and is ready to be sent to the client");
+
             header('content-type: application/json');
             $items = new \webservice\model\Item();
             $items = $items->getItems();

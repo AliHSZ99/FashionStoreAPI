@@ -3,16 +3,29 @@ namespace app\controllers;
 
 include "\\xampp\\htdocs\\vendor\\autoload.php";
 
+include "\\xampp\\htdocs\\vendorLogger\\autoload.php";
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Handler\FirePHPHandler;
+
 class Main extends \app\core\Controller {
 	
 	public function index()
 	{
+		// Create the logger
+		$logger = new Logger('my_logger');
+		// Now add some handlers
+		$logger->pushHandler(new StreamHandler('/xampp/htdocs/app/clientApplication.log', Logger::DEBUG));
+		$logger->pushHandler(new FirePHPHandler());
+
 		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
 		$guest = new \app\models\Guest();
 		$guest = $guest->getGuestByEmail($_SESSION["email"]);
 		$tokenWithBearer = "";
 		if ($guest->token == "") {
-			// echo "hello";
+			$logger->info("\nUser with id $guest->guest_id and email {$_SESSION['email']} has no token and is trying to authenticate");
+
 			$POST = ["guest_id" => $_SESSION["guest_id"], "apikey" => $guest->api_key];
 			$POST = json_encode($POST);
 			$request = [
@@ -21,7 +34,8 @@ class Main extends \app\core\Controller {
 			];
 
 			$response = $client->request("POST", "auth/index", $request);
-			print_r($response);
+			// THIS IS IMPORTANT FOR GUZZLE
+			// print_r($response);
 
 			// $body = $response->getBody()->getContents();
 			// $arr_body = json_decode($body, true);
@@ -47,13 +61,18 @@ class Main extends \app\core\Controller {
 		$contents = json_decode($contents);
 		if (!is_array($contents)) {
 			header("location: /ErrorPages/error401");
+
+			$logger->notice("\nUser is being redirected to error page 401");
 		}
+
+		$logger->info("\nUser with id $guest->guest_id and email {$_SESSION['email']} has a token and successfully accessed the API");
 
 		$this->view('Main/index', $contents);
 	}
 
 	public function insert()
 	{
+
 		if(isset($_POST['action'])) 
 		{
 			//redirect the user back to the index
@@ -88,6 +107,15 @@ class Main extends \app\core\Controller {
 	}
 
 	public function cart() {
+		// Create the logger
+		$logger = new Logger('my_logger');
+		// Now add some handlers
+		$logger->pushHandler(new StreamHandler('/xampp/htdocs/app/clientApplication.log', Logger::DEBUG));
+		$logger->pushHandler(new FirePHPHandler());
+
+		$guest = new \app\models\Guest();
+		$guest = $guest->getGuestByEmail($_SESSION["email"]);
+
 		$this->view('Main/cart');
 	}
 
@@ -115,10 +143,23 @@ class Main extends \app\core\Controller {
 	}
 
 	public function generateApiKey() {
+		// Create the logger
+		$logger = new Logger('my_logger');
+		// Now add some handlers
+		$logger->pushHandler(new StreamHandler('/xampp/htdocs/app/clientApplication.log', Logger::DEBUG));
+		$logger->pushHandler(new FirePHPHandler());
+		$logger->info("\nAn API key has been generated");
+
 		return "fashionstore". uniqid();
+
 	}
 
 	public function register(){
+		// Create the logger
+		$logger = new Logger('my_logger');
+		// Now add some handlers
+		$logger->pushHandler(new StreamHandler('/xampp/htdocs/app/clientApplication.log', Logger::DEBUG));
+		$logger->pushHandler(new FirePHPHandler());
 
 		if (isset($_POST['action'])) {//verify that the user clicked the submit button
 			$guest = new \app\models\Guest();
@@ -139,6 +180,9 @@ class Main extends \app\core\Controller {
 				$guest->password = $password;
 				$guest->api_key = $this->generateApiKey();
 				$guest->insertGuest();
+
+				// log that a user registered
+				$logger->info("\nA user just registered to the website");
 
 				$guest = $guest->getGuestByEmail($_POST['email']);
 				// make a POST request to save API key to the webservice
@@ -166,6 +210,12 @@ class Main extends \app\core\Controller {
 
 	
 	public function login(){
+		// Create the logger
+		$logger = new Logger('my_logger');
+		// Now add some handlers
+		$logger->pushHandler(new StreamHandler('/xampp/htdocs/app/clientApplication.log', Logger::DEBUG));
+		$logger->pushHandler(new FirePHPHandler());
+
 		if (isset($_POST['action'])) {
 			$guest = new \app\models\Guest();
 			$guest = $guest->getGuestByEmail($_POST['email']);
@@ -173,6 +223,8 @@ class Main extends \app\core\Controller {
 			if ($guest != false && password_verify($_POST['password'], $guest->password_hash)) {
 				$_SESSION['guest_id'] = $guest->guest_id;
 				$_SESSION['email'] = $guest->email;
+				$logger->info("\nUser with id $guest->guest_id and email {$_SESSION['email']} logged in");
+
 				header('location:/Main/index');
 			} else {
 				$this->view('Main/login', 'Wrong username and password combination!');
@@ -185,6 +237,13 @@ class Main extends \app\core\Controller {
 
 	public function settings()
 	{
+		// Create the logger
+		$logger = new Logger('my_logger');
+		// Now add some handlers
+		$logger->pushHandler(new StreamHandler('/xampp/htdocs/app/clientApplication.log', Logger::DEBUG));
+		$logger->pushHandler(new FirePHPHandler());
+
+
 		if (isset($_POST["action"])) {
 			header("location:/Main/logout");
 		}
@@ -194,16 +253,25 @@ class Main extends \app\core\Controller {
 			$guest->password = $_POST["password"];
 			$guest->updatePassword($_SESSION["guest_id"]);
 
+			$logger->info("\nUser with id {$_SESSION['guest_id']} changed their password");
+
 			$this->view("Main/settings", "password updated!");
 			return;
 		}
 
-
 		$this->view('Main/settings');
 	}
 	public function logout(){
+		// Create the logger
+		$logger = new Logger('my_logger');
+		// Now add some handlers
+		$logger->pushHandler(new StreamHandler('/xampp/htdocs/app/clientApplication.log', Logger::DEBUG));
+		$logger->pushHandler(new FirePHPHandler());
+		$logger->info("\nUser with id {$_SESSION['guest_id']} and email {$_SESSION['email']} logged out and their session was destroyed");
+
 		//destroy session variables
 		session_destroy();
+
 		header('location:/Main/login');
 	}
 
