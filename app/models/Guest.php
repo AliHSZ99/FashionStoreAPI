@@ -12,6 +12,7 @@ class Guest extends \app\core\Model {
 	public $password_hash;
 	public $phone_number;
 	public $api_key;
+	public $token;
 
 	public function __construct(){
 		parent::__construct();
@@ -60,5 +61,12 @@ class Guest extends \app\core\Model {
 		$STMT = self::$_connection->prepare($SQL);
 		$STMT->execute(['user_id'=>$user_id]);//associative array with key => value pairs
 	}*/
+
+	public function updatePassword($id) {
+		$this->password_hash = password_hash($this->password, PASSWORD_DEFAULT);
+		$SQL = "UPDATE guest SET password_hash = :password_hash WHERE guest_id = :guest_id"; 
+		$STMT = self::$_connection->prepare($SQL);
+		$STMT->execute(["password_hash" => $this->password_hash, "guest_id" => $id]);
+	}
 
 }

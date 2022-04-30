@@ -24,35 +24,36 @@
 <body id="loginBody" >
 	<!-- Div for the logo -->
 	<div id="backgroundPSLogo">
-		<a href="/Main/login"><img  id="loginPSLogo" style="height: 70px;" src="/app/images/logo.png" alt=""></a>
+		<a href="/Main/index"><img  id="loginPSLogo" style="height: 70px;" src="/app/images/logo.png" alt=""></a>
 	</div>
 	
 	<!-- Div for the loginBox -->
 	<div id="loginBox">
 	<nav class="navbar navbar-expand-sm navbar-light">
-		<div class="container-fluid">
+		<div class="container-fluid d-flex">
 			<ul class="navbar-nav loginNavList">
-				<li class="nav-item loginNav ">
-					<a class="nav-link h3" href="/Main/register">REGISTER</a>
-				</li>
-				<li class="nav-item loginNav">
-					<a class="nav-link h3 active " href="/Main/login">SIGN IN</a>
+				<li class="nav-item loginNav" style="border-bottom: none">
+					<a class="nav-link h3" href="/Main/settings" style="margin-left: 80%">Settings</a>
 				</li>
 			</ul>
 		</div>
 	</nav>
 		<div id = "loginForm">
-			<form id="form"action='' method='post'>
-				<p>Email: </p> <input type='text' name='email' required/><br>
-				<p>Password: </p> <input type='password' name='password' required/><br> <br>
-				<input id='loginButton' type='submit' name='action' value='Login' required/>
+			<p>Api Key: </p> <input type='text' class='' style='height: 50px; width: 360px;' name='apikey' value='fashionstore626452eebdc0a' disabled/><br>
+			
+			<form action="" method="post">
+				<p>New Password: </p> <input type='password' style="height: 50px; width: 360px;" name='password' required/><br> <br>
+				<input id='loginButton' style="margin-left: 30%; margin-bottom: -80%; width: 220px; border-radius: 10%; height: 30px; font-size: 16px" type="submit" name='newPasswordClicked' value="Confirm new password">
+				<?php
+					if ($data != null) {
+						echo $data;
+					}
+				?>
 			</form>
-			<?php
-			if($data != null){
-				echo $data;
-			}
-			?>
+			<form id="form" action='' method='post'>
+				<input id='loginButton' type='submit' name='action' value='Logout' required/>
+			</form>
 		</div>
 	</div>
 </body>
-</html>
+</html>0

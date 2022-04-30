@@ -5,14 +5,34 @@ include "\\xampp\\htdocs\\vendor\\autoload.php";
 
 class Main extends \app\core\Controller {
 
+	$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
+
 	public function index()
 	{
-		$this->view('Main/index');
+		$guest = new \app\models\Guest();
+		$email = $_POST["guest_id"];
+		$guest = $guest->getGuestByEmail($email);
+		if (!isset($guest->token)) {
+			$POST = ["guest_id" => $_SESSION["guest_id"], "apikey" => $guest->apikey];
+			$POST = json_encode($POST);
+			$request = [
+				"headers" => ['accept' => 'application/json', 'content-type' => 'application/json'], 
+				"body" => $POST
+			];
+			$response = $client->request("POST", "auth/index", $request);
+		}
+
+
+		$requestOne = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json']];
+		$response = $client->request('GET', 'item/getAll', $requestOne);
+		$contents = $response->getBody()->getContents();
+		$contents = json_decode($contents);
+		$this->view('Main/index', $contents);
 	}
 
 	public function insert()
 	{
-		if(isset($_POST['action']))
+		if(isset($_POST['action'])) 
 		{
 			//redirect the user back to the index
 			header('location:/Main/index');
@@ -24,20 +44,20 @@ class Main extends \app\core\Controller {
 	public function about() 
 	{
 		$this->view('Main/about');
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
-		/*
-		The type of data we would send is: item info, apikey.. we could make cart a part of the api
-		*/
-		// $data = json_encode(array("clientID"=>"1", "requestDate"=>"12/14/21", "requestCompletionDate"=>"12/14/21",
-	 	// "originalFormat"=> ".mp4", "targetFormat"=> ".avi", "inputFile"=> "C:\\xampp\htdocs\\testvideo.mp4" , "APIKey"=> "1234" ));
-		$requestOne = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json']];
-		//$requestTwo = ['body' => $data, 'headers' => ['accept' => 'application/json']];
-		//GET
-		$response = $client->request('GET', 'item/1', $requestOne);
-		//POST
-		//$response = $client->request('POST', 'video/convert', $requestTwo);
-		//remove this if you want to work on about.
-		var_dump($response);
+		// $client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
+		// /*
+		// The type of data we would send is: item info, apikey.. we could make cart a part of the api
+		// */
+		// // $data = json_encode(array("clientID"=>"1", "requestDate"=>"12/14/21", "requestCompletionDate"=>"12/14/21",
+	 	// // "originalFormat"=> ".mp4", "targetFormat"=> ".avi", "inputFile"=> "C:\\xampp\htdocs\\testvideo.mp4" , "APIKey"=> "1234" ));
+		// $requestOne = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json']];
+		// //$requestTwo = ['body' => $data, 'headers' => ['accept' => 'application/json']];
+		// //GET
+		// $response = $client->request('GET', 'item/1', $requestOne);
+		// //POST
+		// //$response = $client->request('POST', 'video/convert', $requestTwo);
+		// //remove this if you want to work on about.
+		// var_dump($response);
 	
 	$contents = $response->getBody()->getContents();
 	echo $contents;
@@ -114,7 +134,7 @@ class Main extends \app\core\Controller {
 			$guest = $guest->getGuestByEmail($_POST['email']);
 
 			if ($guest != false && password_verify($_POST['password'], $guest->password_hash)) {
-				$_SESSION['user_id'] = $guest->guest_id;
+				$_SESSION['guest_id'] = $guest->guest_id;
 				$_SESSION['email'] = $guest->email;
 				header('location:/Main/index');
 			} else {
@@ -126,7 +146,24 @@ class Main extends \app\core\Controller {
 		}
 	}
 
+	public function settings()
+	{
+		if (isset($_POST["action"])) {
+			header("location:/Main/logout");
+		}
 
+		if (isset($_POST["newPasswordClicked"])) {
+			$guest = new \app\models\Guest();
+			$guest->password = $_POST["password"];
+			$guest->updatePassword($_SESSION["guest_id"]);
+
+			$this->view("Main/settings", "password updated!");
+			return;
+		}
+
+
+		$this->view('Main/settings');
+	}
 	public function logout(){
 		//destroy session variables
 		session_destroy();

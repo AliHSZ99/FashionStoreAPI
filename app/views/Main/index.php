@@ -15,7 +15,7 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
     <!-- For CSS stylesheet -->
-	<link rel="stylesheet" href="app/styles.css">
+	<link rel="stylesheet" href="/app/styles.css">
 	<title>FashionStoreAPI</title>
 </head>
 
@@ -40,7 +40,7 @@
 							<a class="nav-link text-white h3" href="/Main/about" style="margin-right: 80px;">About</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white h3" href="/Main/login" style="margin-right: 80px;">Sign In</a>
+							<a class="nav-link text-white h3" href="/Main/settings" style="margin-right: 80px;">Settings</a>
 						</li>
 						<li class="nav-item" style="margin-right: 80px; margin-top: 5px">
 							<a class="nav-link text-white h3" href="/Main/cart"><ion-icon name="cart-outline"></ion-icon></a>
@@ -62,7 +62,22 @@
 					<!-- The code for the items has been done. Simply use retrieveItems() method and for-loop them all here -->
 					<!-- Add the for loop here to add more items -->
 					<!-- Put the div with class called col inside of the for loop -->
-					<div class="col">
+					<?php
+					for ($i = 0; $i < count($data); $i++) {
+						echo "
+						<div class='col'>
+							<div class='itemBox'>
+							<img src='http://{$data[$i]->image_url}' alt='' height='350px'; width='300px'></img>
+							<br>
+							<a class='h4' href='/Main/quickShopButton'>{$data[$i]->item_name}</a>
+							<p>\${$data[$i]->item_price}</p>
+							<input class='quickShop' type='submit' name='action' value='Quick Shop' />
+							</div>
+						</div>
+					";
+					}
+					?>
+					<!-- <div class="col">
 						<div class="itemBox">
 							<img src="/app/images/jeremie.jpg">
 							<br>
@@ -71,10 +86,10 @@
 							
 							<input class='quickShop' type='submit' name='action' value='Quick Shop' />
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
-		</div>
+		</div> 
 
 
 		<!-- Filters -->

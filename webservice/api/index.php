@@ -82,8 +82,13 @@
 
 			switch($accept){
 				case 'application/json':
-					$responsepayload = $this->Controller->getData($_GET['item']);
-					echo $responsepayload;
+					if ($_GET['item'] == 'getAll') {
+						$responsepayload = $this->Controller->getAllData();
+						echo $responsepayload;
+					} else {
+						$responsepayload = $this->Controller->getData($_GET['item']);
+						echo $responsepayload;
+					}
 					break;
 				//handle other formats
 			}

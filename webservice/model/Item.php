@@ -8,11 +8,11 @@ class Item extends \webservice\core\Model {
 
     public $item_id;
     public $item_name;
-    public $item_size;
     public $item_type;
     public $item_brand;
     public $item_color;
     public $item_price;
+    public $image_url;
 
     public function insert(){
 		$SQL = 'INSERT INTO item(clientName, licenseNumber, licenseStartDate, licenseEndDate, APIKey) 
@@ -28,6 +28,14 @@ class Item extends \webservice\core\Model {
       $STMT->execute(['item_id' => $item_id]);
       $STMT->setFetchMode(\PDO::FETCH_CLASS, 'webservice\\model\\Item');
       return $STMT->fetch();
+    }
+
+    public function getItems() {
+      $SQl = 'SELECT * FROM item';
+      $STMT = self::$_connection->prepare($SQl);
+      $STMT->execute();
+      $STMT->setFetchMode(\PDO::FETCH_CLASS, 'webservice\\model\\Item');
+      return $STMT->fetchAll();
     }
 
 }

@@ -263,3 +263,8 @@ position: absolute;
 #addToCartButton:hover {
     background-color: #535151;
 }
+
+#apikeyBox {
+    width: 200px;
+    height: 400px;
+}

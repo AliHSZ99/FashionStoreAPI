@@ -2,7 +2,8 @@
 
 namespace app\controllers;
 
-include "\\xampp\\htdocs\\vendor\\autoload.php";
+include "\\xampp\\htdocs\\vendorJWT\\autoload.php";
+
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -14,8 +15,8 @@ class Auth extends \app\core\Controller {
 		$theRequest = json_decode($theRequest);
 		header("content-type: application/json");
 
-        $client = new \app\models\Client();
-        $client->APIKey = $theRequest->apikey;
+        $guest = new \app\models\Guest();
+        $guest->apikey = $theRequest->apikey;
 
         
         $client = $client->getClientByAPIKey();

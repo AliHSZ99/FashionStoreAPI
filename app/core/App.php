@@ -10,7 +10,7 @@ namespace app\core;
 class App{
 
 	private $controller = 'app\\controllers\\Main'; //set a default value for the controller
-	private $method = 'index'; //set a default value for the method
+	private $method = 'login'; //set a default value for the method
 	private $params = [];
 
 	public function __construct(){

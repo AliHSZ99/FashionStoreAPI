@@ -23,7 +23,7 @@
 <body>
 	<!-- Div for the logo -->
 	<div id="backgroundPSLogo">
-		<a href="/Main/index"><img  id="loginPSLogo" style="height: 70px;" src="/app/images/logo.png" alt=""></a>
+		<a href="/Main/login"><img  id="loginPSLogo" style="height: 70px;" src="/app/images/logo.png" alt=""></a>
 	</div>
 
 	<!-- Div for the RegisterBox -->
