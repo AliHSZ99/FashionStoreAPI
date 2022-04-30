@@ -19,7 +19,7 @@ class Auth extends \app\core\Controller {
         $guest->apikey = $theRequest->apikey;
 
         
-        $client = $client->getClientByAPIKey();
+        $client = $->getClientByAPIKey();
 
         // Checking if client exists
         if ($client == null) {

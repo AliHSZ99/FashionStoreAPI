@@ -85,6 +85,9 @@
 					if ($_GET['item'] == 'getAll') {
 						$responsepayload = $this->Controller->getAllData();
 						echo $responsepayload;
+					} else if ($_GET['item'] == 'populate'){
+						$responsepayload = $this->Controller->populateItemTable();
+						echo $responsepayload;
 					} else {
 						$responsepayload = $this->Controller->getData($_GET['item']);
 						echo $responsepayload;

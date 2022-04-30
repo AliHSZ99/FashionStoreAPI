@@ -14,11 +14,11 @@ class Auth extends \app\core\Controller {
 		$theRequest = json_decode($theRequest);
 		header("content-type: application/json");
 
-        $client = new \app\models\Client();
+        $client = new \app\models\Guest();
         $client->APIKey = $theRequest->apikey;
 
         
-        $client = $client->getClientByAPIKey();
+        $client = $client->getGuestByEmail("asd");
 
         // Checking if client exists
         if ($client == null) {

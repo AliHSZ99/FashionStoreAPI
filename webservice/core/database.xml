@@ -2,5 +2,5 @@
     <host>localhost</host>
     <user>root</user>
     <password></password>
-    <dbname>webservicedb</dbname>
+    <dbname>webserverdb</dbname>
 </dbconnection>

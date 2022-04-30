@@ -14,13 +14,13 @@ class Item extends \webservice\core\Model {
     public $item_price;
     public $image_url;
 
-    public function insert(){
-		$SQL = 'INSERT INTO item(clientName, licenseNumber, licenseStartDate, licenseEndDate, APIKey) 
-            VALUES (:clientName, :licenseNumber, :licenseStartDate, :licenseEndDate, :APIKey)';
-		$STMT = self::$_connection->prepare($SQL);
-		$STMT->execute(['clientName'=>$this->clientName, 'licenseNumber'=>$this->licenseNumber, 'licenseStartDate'=>$this->licenseStartDate,
-        'licenseEndDate'=>$this->licenseEndDate, 'APIKey'=>$this->APIKey]);
-	  }
+    public function insertItem(){
+      $SQL = 'INSERT INTO item(item_name, item_type, item_brand, item_color, item_price, image_url) VALUES 
+      (:item_name, :item_type, :item_brand, :item_color, :item_price, :image_url)';
+      $STMT = self::$_connection->prepare($SQL);
+      $STMT->execute(['item_name' => $this->item_name, 'item_type' => $this->item_type, 'item_brand' => $this->item_brand,
+            'item_color' => $this->item_color, 'item_price' => $this->item_price, 'image_url' => $this->image_url]);
+    }
 
     public function get($item_id) {
       $SQL = 'SELECT * FROM item WHERE item_id = :item_id';
