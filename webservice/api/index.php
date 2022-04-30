@@ -91,6 +91,7 @@
 					} else {
 						$responsepayload = $this->Controller->getData($_GET['item']);
 						echo $responsepayload;
+
 					}
 					break;
 				//handle other formats
@@ -107,11 +108,20 @@
 			}
 
 			switch($accept){
-
 				case 'application/json':
-					$responsepayload = json_encode($this->Controller->convert($this->Request->payload));
-					echo "Your video has been converted";
-					break;
+					if (isset($_GET["auth"])) {
+						if ($_GET["auth"] == "index") {
+							$responsepayload = $this->Controller->index();
+							echo $responsepayload;
+						}
+					}
+					else if (isset($_GET["clients"])) {
+						if ($_GET["clients"] == "addClient") {
+							$responsepayload = $this->Controller->addClient();
+							echo $responsepayload;
+
+						}
+					}
 				//handle other formats
 			}
 

@@ -34,6 +34,12 @@ class Guest extends \app\core\Model {
 					'password_hash' => $this->password_hash, 'phone_number' => $this->phone_number, 'api_key' => $this->api_key]);
 	}
 
+	public function addToken() {
+		$SQL = 'UPDATE guest SET token = :token WHERE guest_id = :guest_id';
+		$STMT = self::$_connection->prepare($SQL);
+		$STMT->execute(['token' => $this->token, 'guest_id' => $this->guest_id]);
+	}
+
 	public function emailExists() {
 		$SQL = 'SELECT COUNT(email) FROM guest WHERE email = :email';
 		$STMT = self::$_connection->prepare($SQL);

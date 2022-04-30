@@ -10,21 +10,38 @@ class Main extends \app\core\Controller {
 	{
 		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
 		$guest = new \app\models\Guest();
-		$email = $_POST["guest_id"];
-		$guest = $guest->getGuestByEmail($email);
-		if (!isset($guest->token)) {
-			$POST = ["guest_id" => $_SESSION["guest_id"], "apikey" => $guest->apikey];
+		$guest = $guest->getGuestByEmail($_SESSION["email"]);
+		if ($guest->token == "") {
+			// echo "hello";
+			$POST = ["guest_id" => $_SESSION["guest_id"], "apikey" => $guest->api_key];
 			$POST = json_encode($POST);
 			$request = [
 				"headers" => ['accept' => 'application/json', 'content-type' => 'application/json'], 
 				"body" => $POST
 			];
+
 			$response = $client->request("POST", "auth/index", $request);
+			print_r($response);
+
+			$body = $response->getBody()->getContents();
+			// $arr_body = json_decode($body, true);
+			// print_r($arr_body);
+
+			// $headers = $response->getHeaders();
+			// print_r($headers);
+
+			$a = $response->getHeader('WWWW-Authenticate');
+
+			echo "<br><br>";
+
+			print_r($a);
+			// var_dump($authHeader);
+
+
 		}
 
-
-		$requestOne = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json']];
-		$response = $client->request('GET', 'item/getAll', $requestOne);
+		$request = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json']];
+		$response = $client->request('GET', 'item/getAll', $request);
 		$contents = $response->getBody()->getContents();
 		$contents = json_decode($contents);
 		$this->view('Main/index', $contents);
@@ -44,13 +61,13 @@ class Main extends \app\core\Controller {
 	public function about() 
 	{
 		$this->view('Main/about');
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
+		// $client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
 		// /*
 		// The type of data we would send is: item info, apikey.. we could make cart a part of the api
 		// */
 		// // $data = json_encode(array("clientID"=>"1", "requestDate"=>"12/14/21", "requestCompletionDate"=>"12/14/21",
 	 	// // "originalFormat"=> ".mp4", "targetFormat"=> ".avi", "inputFile"=> "C:\\xampp\htdocs\\testvideo.mp4" , "APIKey"=> "1234" ));
-		$requestOne = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json']];
+		//$requestOne = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json']];
 		// //$requestTwo = ['body' => $data, 'headers' => ['accept' => 'application/json']];
 		// //GET
 		// $response = $client->request('GET', 'item/1', $requestOne);
@@ -58,9 +75,9 @@ class Main extends \app\core\Controller {
 		// //$response = $client->request('POST', 'video/convert', $requestTwo);
 		// //remove this if you want to work on about.
 		// var_dump($response);
-		$response = $client->request('GET', 'item/populate', $requestOne);
-		$contents = $response->getBody()->getContents();
-		echo $contents;
+		// $response = $client->request('GET', 'item/populate', $requestOne);
+		// $contents = $response->getBody()->getContents();
+		// echo $contents;
 	//$decoded = json_decode($contents); 
 	//echo $decoded->licenseNumber;
 	}
@@ -117,7 +134,22 @@ class Main extends \app\core\Controller {
 				$guest->password = $password;
 				$guest->api_key = $this->generateApiKey();
 				$guest->insertGuest();
-				$this->view("Main/login");
+
+				$guest = $guest->getGuestByEmail($_POST['email']);
+				// make a POST request to save API key to the webservice
+				$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
+				$POST = ["guest_id" => $guest->guest_id, "apikey" => $guest->api_key];
+				$POST = json_encode($POST);
+				$request = [
+					"headers" => ['accept' => 'application/json', 'content-type' => 'application/json'], 
+					"body" => $POST
+				];
+				$response = $client->request("POST", "clients/addClient", $request);
+				$body = $response->getBody()->getContents();
+				// echo $body;
+				// print_r($body);
+
+				header('location:/Main/login');
 			} else {
 				$this->view("Main/register", "Passwords do not match...");
 				return;
