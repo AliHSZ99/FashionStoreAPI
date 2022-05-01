@@ -2,7 +2,7 @@
 
 namespace webservice\model;
 
-require(dirname(__DIR__)."\\core\\Model.php");
+
 
 class Client extends \webservice\core\Model {
 
@@ -19,7 +19,7 @@ class Client extends \webservice\core\Model {
       $SQL = 'SELECT * FROM client WHERE clientID = :clientID';
       $STMT = self::$_connection->prepare($SQL);
       $STMT->execute(['clientID' => $clientID]);
-      $STMT->setFetchMode(\PDO::FETCH_CLASS, 'webservice\\models\\Client');
+      $STMT->setFetchMode(\PDO::FETCH_CLASS, 'webservice\\model\\Client');
       return $STMT->fetch();
     }
 
@@ -27,7 +27,7 @@ class Client extends \webservice\core\Model {
       $SQL = "SELECT * FROM client WHERE api_key = :api_key";
       $STMT = self::$_connection->prepare($SQL);
       $STMT->execute(['api_key' => $this->api_key]);
-      $STMT->setFetchMode(\PDO::FETCH_CLASS, 'webservice\\models\\Client');
+      $STMT->setFetchMode(\PDO::FETCH_CLASS, 'webservice\\model\\Client');
       return $STMT->fetch();
     }
 

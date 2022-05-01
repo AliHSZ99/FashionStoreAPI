@@ -37,12 +37,15 @@
 				<div  class="collapse navbar-collapse" id="mynavbar">
 					<ul class="navbar-nav me-auto position-absolute end-0">
 						<li class="nav-item">
-							<a class="nav-link text-white h3" href="/Main/about" style="margin-right: 80px;">About</a>
+							<a class="nav-link text-white h3" href="/Main/About" style="margin-right: 30px;">About</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white h3" href="/Main/settings" style="margin-right: 80px;">Settings</a>
+							<a class="nav-link text-white h3" href="/Main/wishlist" style="margin-right: 30px;">Wishlist</a>
 						</li>
-						<li class="nav-item" style="margin-right: 80px; margin-top: 5px">
+						<li class="nav-item">
+							<a class="nav-link text-white h3" href="/Main/settings" style="margin-right: 30px;">Settings</a>
+						</li>
+						<li class="nav-item" style="margin-right: 30px; margin-top: 5px">
 							<a class="nav-link text-white h3" href="/Main/cart"><ion-icon name="cart-outline"></ion-icon></a>
 						</li>
 					</ul>
@@ -51,35 +54,41 @@
 		</nav>
 	</div>
 
-    <!-- This div is for the item -->
-	<div id="itemContainerBox">
-		<div class="row">
-            <div class="col">
-                <img id="itemImage" src="/app/images/shirt.jpg" alt="">
+	<?php
+	echo "
+	<div id='itemContainerBox'>
+		<div class='row'>
+            <div class='col'>
+                <img id='itemImage' src='http://$data->image_url' alt='' style='height: 350px; width: 300px'>
             </div>
             <!-- Production Information -->
-            <div class="col productInfo">
-                <div class="container">
-                    <div class="row">
-                       <h2>UO Big Corduroy Work Shirt</h2>
-                       <h2>Brown</h2>
-                       <div class="btn-group me-2" role="group" aria-label="Second group">
-                            <button type="button" class="btn btn-outline-secondary">S</button>
-                            <button type="button" class="btn btn-outline-secondary">M</button>
-                            <button type="button" class="btn btn-outline-secondary">L</button>
-                            <button type="button" class="btn btn-outline-secondary">XL</button>
-                        </div>
-                       <h2>$69.99</h2>
-                       <button id="addToCartButton">Add To Cart</button>
+            <div class='col productInfo'>
+                <div class='container'>
+                    <div class='row'>
+						<form action='/Main/addToCart/$data->item_id' method='POST'>
+							<h2>$data->item_name</h2>
+							<h2>$data->item_color</h2>
+							<br>
+							<label for='size'>Choose a size:</label>
+							<select id='size' name='size'>
+								<option value='S'>S</option>
+								<option value='M'>M</option>
+								<option value='L'>L</option>
+								<option value='XL'>XL</option>
+							</select>
+							<h2>$$data->item_price</h2>
+							<button id='addToCartButton' name='action' style='margin-top: 23%'>Add To Cart</button>
+						</form>
                     </div>
                 </div>
             </div>
             <!-- Go Back Button -->
-            <div class="col">
-                <a href="/Main/index"><button class="btn btn-outline-secondary">Go Back</button></a>
+            <div class='col'>
+                <a href='/Main/index'><button class='btn btn-outline-secondary'>Go Back</button></a>
             </div>
         </div>
-	</div>
-	
+	</div>"
+
+	?>
 </body>
 </html>

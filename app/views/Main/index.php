@@ -37,12 +37,15 @@
 				<div  class="collapse navbar-collapse" id="mynavbar">
 					<ul class="navbar-nav me-auto position-absolute end-0">
 						<li class="nav-item">
-							<a class="nav-link text-white h3" href="/Main/about" style="margin-right: 80px;">About</a>
+							<a class="nav-link text-white h3" href="/Main/About" style="margin-right: 30px;">About</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white h3" href="/Main/settings" style="margin-right: 80px;">Settings</a>
+							<a class="nav-link text-white h3" href="/Main/wishlist" style="margin-right: 30px;">Wishlist</a>
 						</li>
-						<li class="nav-item" style="margin-right: 80px; margin-top: 5px">
+						<li class="nav-item">
+							<a class="nav-link text-white h3" href="/Main/settings" style="margin-right: 30px;">Settings</a>
+						</li>
+						<li class="nav-item" style="margin-right: 30px; margin-top: 5px">
 							<a class="nav-link text-white h3" href="/Main/cart"><ion-icon name="cart-outline"></ion-icon></a>
 						</li>
 					</ul>
@@ -69,7 +72,7 @@
 							<div class='itemBox'>
 							<img src='http://{$data[$i]->image_url}' alt='' height='350px'; width='300px'></img>
 							<br>
-							<a class='h4' href='/Main/quickShopButton'>{$data[$i]->item_name}</a>
+							<a class='h4' href='/Main/quickShopButton/{$data[$i]->item_id}'>{$data[$i]->item_name}</a>
 							<p>\${$data[$i]->item_price}</p>
 							<input class='quickShop' type='submit' name='action' value='Quick Shop' />
 							</div>

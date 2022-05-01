@@ -276,8 +276,62 @@ class Main extends \app\core\Controller {
 	}
 
 	// This method is for testing purpsoses only
-	public function quickShopButton(){
-		$this->view('Main/item');
+	public function quickShopButton($item_id){
+		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
+		$request = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json']];
+		// echo "<br><br><br>". $tokenWithBearer;
+		$response = $client->request('GET', "item/$item_id", $request);
+		$contents = $response->getBody()->getContents();
+		$contents = json_decode($contents);
+
+		$this->view('Main/item', $contents);
+	}
+
+	// This is for wishlist 
+	public function wishlist() {
+		// Uncommemt this to retrieve all the records from the DB
+		// $wishlist = new \app\models\Wishlist();
+		// $wishlists = $wishlist->getAllWishlists($_SESSION["guest_id"]);
+
+		$this->view('Main/wishlist');
+		// Uncomment line 117 then remove line 115
+		// $this->view('Main/wishlist',$wishlists);
+
+	}
+
+	// This method is to remove an item from the wishlist
+	public function removeWishlist($item_id) {
+		$wishlist = new \app\models\Wishlist();
+		$wishlist->deleteWishlist($_SESSION["guest_id"], $item_id);
+
+		$this->view('Main/wishlist');
+	}
+
+	// This method is to add an item cart 
+	public function addToCart($item_id) {
+		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
+		// $cart->addToCart($_SESSION["guest_id"], $item_id);
+		if (isset($_POST['action'])) {
+			$guest = new \app\models\Guest();
+			$guest = $guest->getGuestByEmail($_SESSION["email"]);
+			$POST = ["api_key" => $guest->api_key, "item_id" => $item_id, "size" => $_POST["size"]];
+			$POST = json_encode($POST);
+			//WE ALWAYS TO ADD THE AUTHORIZATION HEADER IN HERE TO VERIFY TOKEN IN THE BACKEND!
+			//DO THIS WHEN WE FIX TOKEN OK
+			$request = [
+				"headers" => ['accept' => 'application/json', 'content-type' => 'application/json'],
+				"body" => $POST
+			];
+
+			$response = $client->request("POST", "cart/addToCart", $request);
+			$contents = $response->getBody()->getContents();
+			$this->view('Main/cart', $contents);
+
+		}
+
+		// Checks if the item is already in the cart. If it is, it will update the quantity
+
+		$this->view('Main/cart');
 	}
 
 }

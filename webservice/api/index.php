@@ -122,6 +122,12 @@
 
 						}
 					}
+					else if (isset($_GET["cart"])) {
+						if ($_GET["cart"] == "addToCart") {
+							$responsepayload = $this->Controller->addToCart();
+							echo $responsepayload;
+						}
+					}
 				//handle other formats
 			}
 

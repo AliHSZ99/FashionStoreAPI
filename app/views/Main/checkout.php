@@ -33,13 +33,16 @@
 
 				<div  class="collapse navbar-collapse" id="mynavbar">
 					<ul class="navbar-nav me-auto position-absolute end-0">
-						<li class="nav-item">
-							<a class="nav-link text-white h3" href="/Main/About" style="margin-right: 80px;">About</a>
+					<li class="nav-item">
+							<a class="nav-link text-white h3" href="/Main/About" style="margin-right: 30px;">About</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white h3" href="/Main/settings" style="margin-right: 80px;">Settings</a>
+							<a class="nav-link text-white h3" href="/Main/wishlist" style="margin-right: 30px;">Wishlist</a>
 						</li>
-						<li class="nav-item" style="margin-right: 80px; margin-top: 10px">
+						<li class="nav-item">
+							<a class="nav-link text-white h3" href="/Main/settings" style="margin-right: 30px;">Settings</a>
+						</li>
+						<li class="nav-item" style="margin-right: 30px; margin-top: 10px">
 							<a class="nav-link text-white h3" href="/Main/Cart"><ion-icon name="cart-outline"></ion-icon></a>
 						</li>
 					</ul>

@@ -20,7 +20,10 @@ use Firebase\JWT\Key;
             $item = new \webservice\model\Item();
             $item = $item->get($ID);
             //$responsepayload = 'The license number of Client '. $client->clientName . ' is: ' . $client->licenseNumber;
-            $responsepayload = ['item_id' => $ID, "item_type" => $item->item_type];
+            $responsepayload = ['item_id' => $ID, "item_type" => $item->item_type, 
+            'item_brand' => $item->item_brand, 'item_price' => $item->item_price,
+            'image_url' => $item->image_url, 'item_color' => $item->item_color,
+            'item_name' => $item->item_name];
             $responsepayload = json_encode($responsepayload);
 
             return $responsepayload;

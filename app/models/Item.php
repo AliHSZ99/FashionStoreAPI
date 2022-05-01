@@ -32,5 +32,13 @@ class Item extends \app\core\Model {
 		return $STMT->fetchAll();
 	}
 
+	public function getItem($item_id) {
+		$SQL = 'SELECT * FROM item WHERE item_id = :item_id';
+		$STMT = self::$_connection->prepare($SQL);
+		$STMT->execute(['item_id' => $this->item_id]);
+		$STMT->setFetchMode(\PDO::FETCH_CLASS, 'app\models\Item');
+		return $STMT->fetch();
+	}
+
 
 }
