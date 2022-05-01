@@ -46,3 +46,8 @@
 [2022-05-01T01:09:36.744077+02:00] my_logger.INFO:  User with id 100 and email www logged in [] []
 [2022-05-01T01:09:36.809541+02:00] my_logger.INFO:  User with id 100 and email www has no token and is trying to authenticate [] []
 [2022-05-01T01:09:36.943853+02:00] my_logger.INFO:  User with id 100 and email www has a token and successfully accessed the API [] []
+[2022-05-01T03:00:53.925393+02:00] my_logger.INFO:  An API key has been generated [] []
+[2022-05-01T03:00:53.984110+02:00] my_logger.INFO:  A user just registered to the website [] []
+[2022-05-01T03:00:59.624539+02:00] my_logger.INFO:  User with id 101 and email asdff logged in [] []
+[2022-05-01T03:00:59.704667+02:00] my_logger.INFO:  User with id 101 and email asdff has no token and is trying to authenticate [] []
+[2022-05-01T03:00:59.855357+02:00] my_logger.INFO:  User with id 101 and email asdff has a token and successfully accessed the API [] []
