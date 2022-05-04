@@ -307,7 +307,7 @@ class Main extends \app\core\Controller {
 		$this->view('Main/wishlist');
 	}
 
-	// This method is to add an item cart 
+	// This method is to add an item cart or add item on their wish list
 	public function addToCart($item_id) {
 		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
 		// $cart->addToCart($_SESSION["guest_id"], $item_id);
@@ -326,12 +326,48 @@ class Main extends \app\core\Controller {
 			$response = $client->request("POST", "cart/addToCart", $request);
 			$contents = $response->getBody()->getContents();
 			$this->view('Main/cart', $contents);
-
+		
 		}
 
-		// Checks if the item is already in the cart. If it is, it will update the quantity
-
+		// Use to add the data in the wishlist table
+		if (isset($_POST['addToWishlist'])) {
+			$wishlist = new \app\models\Wishlist();
+			$request = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json']];
+			$response = $client->request('GET', "item/$item_id", $request);
+			$contents = $response->getBody()->getContents();
+			$contents = json_decode($contents);
+			
+			if ($wishlist->isItemExist($_SESSION['guest_id'], $item_id)) {
+				$this->quickShopButton($item_id);
+				return;
+			} else {
+				$wishlist->item_name = $contents->item_name;
+				$wishlist->item_price = $contents->item_price;
+				$wishlist->image_url = $contents->image_url;
+				$wishlist->addWishlist($_SESSION['guest_id'], $item_id);
+				$this->quickShopButton($item_id);
+				return;
+			}
+		}
 		$this->view('Main/cart');
 	}
+
+	public function goToWishlist() {
+		$wishlist = new \app\models\Wishlist();
+		$wishlists = $wishlist->getAllWishlist($_SESSION['guest_id']);
+
+		$this->view('Main/wishlist', $wishlists);
+	}
+
+	public function removeToWishlist($item_id) {
+		$wishlist = new \app\models\Wishlist();
+		if(isset($_POST['removeItem'])) {
+			$wishlist->deletewishlist($_SESSION['guest_id'], $item_id);
+		}
+		$wishlists = $wishlist->getAllWishlist($_SESSION['guest_id']);
+
+		$this->view('Main/wishlist', $wishlists);
+	}
+
 
 }

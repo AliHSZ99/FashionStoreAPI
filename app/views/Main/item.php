@@ -40,7 +40,7 @@
 							<a class="nav-link text-white h3" href="/Main/About" style="margin-right: 30px;">About</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white h3" href="/Main/wishlist" style="margin-right: 30px;">Wishlist</a>
+							<a class="nav-link text-white h3" href="/Main/goToWishlist" style="margin-right: 30px;">Wishlist</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-white h3" href="/Main/settings" style="margin-right: 30px;">Settings</a>
@@ -77,7 +77,8 @@
 								<option value='XL'>XL</option>
 							</select>
 							<h2>$$data->item_price</h2>
-							<button id='addToCartButton' name='action' style='margin-top: 23%'>Add To Cart</button>
+							<button id='addToCartButton' name='action' style='margin-top: 5%; margin-left: -5%'>Add To Cart</button>
+							<button id='' class='btn btn-outline-warning' name='addToWishlist' style='margin-top: 2%;'>Add to Wishlist</button> 
 						</form>
                     </div>
                 </div>

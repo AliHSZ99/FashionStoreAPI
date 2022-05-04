@@ -40,7 +40,7 @@
 							<a class="nav-link text-white h3" href="/Main/About" style="margin-right: 30px;">About</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white h3" href="/Main/wishlist" style="margin-right: 30px;">Wishlist</a>
+							<a class="nav-link text-white h3" href="/Main/goToWishlist" style="margin-right: 30px;">Wishlist</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-white h3" href="/Main/settings" style="margin-right: 30px;">Settings</a>
