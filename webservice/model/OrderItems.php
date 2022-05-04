@@ -1,12 +1,11 @@
 <?php
 namespace webservice\model;
 
-require(dirname(__DIR__)."\\core\\Model.php");
+// require(dirname(__DIR__)."\\core\\Model.php");
 
 class Orderitems extends \webservice\core\Model{
     public $guest_id;
 	public $item_id;
-	public $quantity;
 	public $size;
 
 	public function __construct(){
@@ -16,8 +15,7 @@ class Orderitems extends \webservice\core\Model{
     //function that get the current item 
     public function getItem($guest_id,$item_id) {
         $SQL = 'SELECT * FROM checkout WHERE client_id = :client_id AND item_id = :item_id';
-        $STMT = self::$_connection->query($SQL);
-        $STMT->execute(['client_id' => $guest_id, 'item_id' => $item_id]);
+        $STMT = self::$_connection->prepare($SQL);
         $STMT->setFetchMode(\PDO::FETCH_CLASS,'app\\models\\Orderitems');
         return $STMT->fetch();//return the item
     }
@@ -43,9 +41,9 @@ class Orderitems extends \webservice\core\Model{
     }
 
     // method that updates the quantity of the item in the cart.
-    public function updateQuantity($guest_id, $item_id, $quantity) {
+    public function updateQuantity($guest_id, $item_id) {
         $SQL = "UPDATE checkout SET quantity = :quantity WHERE guest_id = :guest_id AND item_id = :item_id";
         $STMT = self::$_connection->prepare($SQL);
-        $STMT->execute(['guest_id' => $guest_id, 'item_id' => $item_id, 'quantity' => $quantity]);
+        $STMT->execute(['guest_id' => $guest_id, 'item_id' => $item_id, 'quantity' => $this->$quantity+1]);
     }
 }

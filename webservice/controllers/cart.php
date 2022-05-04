@@ -1,7 +1,7 @@
 <?php
-require(dirname(__DIR__)."\\core\\Model.php");
-require_once(dirname(__DIR__)."\\model\\OrderItems.php");
-require_once(dirname(__DIR__)."\\model\\Client.php");
+include_once(dirname(__DIR__)."\\core\\Model.php");
+include_once(dirname(__DIR__)."\\model\\OrderItems.php");
+include_once(dirname(__DIR__)."\\model\\Client.php");
 
 
 include "\\xampp\\htdocs\\vendorJWT\\autoload.php";
@@ -25,8 +25,7 @@ use Firebase\JWT\Key;
             $item = new \webservice\model\OrderItems();
             //$info
             if ($item->isItemExist($client->client_id, $info["item_id"])) {
-                $currentItem = $item->getItem($client->client_id, $info["item_id"]);
-                $currentItem->updateItem($client->client_id, $info["item_id"], $currentItem->quantity + 1);
+               return;
             } else {
                 $item->quantity = 1;
                 $item->size = $info["size"];

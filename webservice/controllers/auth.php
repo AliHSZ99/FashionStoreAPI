@@ -1,5 +1,5 @@
 <?php
-
+include(dirname(__DIR__)."\\core\\Model.php");
 require(dirname(__DIR__)."\\model\\Client.php");
 
 include "\\xampp\\htdocs\\vendorJWT\\autoload.php";

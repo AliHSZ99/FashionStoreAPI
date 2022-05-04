@@ -43,7 +43,7 @@
 							<a class="nav-link text-white h3" href="/Main/settings" style="margin-right: 30px;">Settings</a>
 						</li>
 						<li class="nav-item" style="margin-right: 30px; margin-top: 5px">
-							<a class="nav-link text-white h3" href="/Main/Cart"><ion-icon name="cart-outline"></ion-icon></a>
+							<a class="nav-link text-white h3" href="/Main/getAllItemsForCart"><ion-icon name="cart-outline"></ion-icon></a>
 						</li>
 					</ul>
 				</div>

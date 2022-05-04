@@ -126,6 +126,9 @@
 							$responsepayload = $this->Controller->addToCart();
 							echo $responsepayload;
 						}
+					} else if (isset($_GET["checkout"])) {
+						$responsepayload = $this->Controller->checkout($_GET["checkout"]);
+						echo $responsepayload;
 					}
 				//handle other formats
 			}

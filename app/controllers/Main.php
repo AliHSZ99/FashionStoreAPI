@@ -328,7 +328,7 @@ class Main extends \app\core\Controller {
 			$response = $client->request("POST", "cart/addToCart", $request);
 			$contents = $response->getBody()->getContents();
 			$this->view('Main/cart', $contents);
-		
+			return;
 		}
 
 		// Use to add the data in the wishlist table
@@ -352,6 +352,24 @@ class Main extends \app\core\Controller {
 			}
 		}
 		$this->view('Main/cart');
+	}
+
+	public function getAllItemsForCart() {
+		$guest = new \app\models\Guest();
+		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
+		$guest = $guest->getGuestByEmail($_SESSION["email"]);
+		$email = json_encode(["email" => $guest->email]);
+		$request = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json', 'Authorization' => 'Bearer ' . $guest->token], "body" => $email];
+		$response = $client->request('POST', "checkout/".$guest->email, $request);
+		$contents = json_decode($response->getBody()->getContents());
+
+		// if (!is_array($contents)) {
+		// 	header("location: /ErrorPages/error401");
+
+		// 	$logger->notice("\nUser is being redirected to error page 401");
+		// }
+		echo "Hello ". $contents;
+		$this->view('Main/cart', $contents);
 	}
 
 	public function goToWishlist() {

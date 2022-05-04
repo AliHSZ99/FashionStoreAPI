@@ -74,8 +74,10 @@
 							<br>
 							<a class='h4' href='/Main/quickShopButton/{$data[$i]->item_id}'>{$data[$i]->item_name}</a>
 							<p>\${$data[$i]->item_price}</p>
-							<input class='quickShop' type='submit' name='action' value='Quick Shop' />
+							<form action ='/Main/quickShopButton/{$data[$i]->item_id}'>
+								<button class='btn btn-outline-secondary quickShop' type='submit'>Quick Shop</button>
 							</div>
+							</form>
 						</div>
 					";
 					}
