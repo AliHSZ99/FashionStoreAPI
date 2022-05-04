@@ -119,7 +119,6 @@
 						if ($_GET["clients"] == "addClient") {
 							$responsepayload = $this->Controller->addClient();
 							echo $responsepayload;
-
 						}
 					}
 					else if (isset($_GET["cart"])) {

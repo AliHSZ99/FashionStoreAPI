@@ -52,7 +52,15 @@ class Guest extends \app\core\Model {
 		$SQl = 'SELECT * FROM guest WHERE email = :email';
 		$STMT = self::$_connection->prepare($SQl);
 		$STMT->execute(['email' => $email]);
-		$STMT->setFetchMode(\PDO::FETCH_CLASS, 'app\models\Guest');
+		$STMT->setFetchMode(\PDO::FETCH_CLASS, 'app\\models\\Guest');
+		return $STMT->fetch();
+	}
+
+	public function getGuest($id) {
+		$SQL = 'SELECT * FROM guest WHERE guest_id = :guest_id';
+		$STMT = self::$_connection->prepare($SQL);
+		$STMT->execute(['guest_id' => $id]);
+		$STMT->setFetchMode(\PDO::FETCH_CLASS, 'app\\models\\Guest');
 		return $STMT->fetch();
 	}
 

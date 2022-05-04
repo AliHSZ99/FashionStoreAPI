@@ -14,6 +14,7 @@ use Firebase\JWT\Key;
 class Clients {
 
     public function addClient() {
+        // echo "hello add client";
         // Create the logger
 		$logger = new Logger('my_logger');
 		// Now add some handlers

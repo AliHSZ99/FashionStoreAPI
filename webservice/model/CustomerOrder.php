@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+require(dirname(__DIR__)."\\core\\Model.php");
+
 class CustomerOrder extends \app\core\Model {
 
     public $order_id;

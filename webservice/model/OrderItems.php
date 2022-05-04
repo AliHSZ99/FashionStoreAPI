@@ -1,6 +1,7 @@
 <?php
 namespace webservice\model;
 
+require(dirname(__DIR__)."\\core\\Model.php");
 
 class Orderitems extends \webservice\core\Model{
     public $guest_id;

@@ -2,7 +2,7 @@
 
 namespace webservice\model;
 
-
+require(dirname(__DIR__)."\\core\\Model.php");
 
 class Client extends \webservice\core\Model {
 
