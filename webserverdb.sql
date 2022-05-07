@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2022 at 03:02 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- Generation Time: May 07, 2022 at 09:44 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,7 +44,10 @@ INSERT INTO `checkout` (`client_id`, `item_id`, `size`) VALUES
 (66, 19, 'S'),
 (67, 19, 'S'),
 (67, 20, 'S'),
-(68, 19, 'S');
+(68, 19, 'S'),
+(70, 21, 'S'),
+(69, 19, 'S'),
+(69, 20, 'S');
 
 -- --------------------------------------------------------
 
@@ -69,7 +72,9 @@ INSERT INTO `client` (`client_id`, `api_key`, `email`) VALUES
 (66, 'fashionstore62720893196d7', ''),
 (67, 'fashionstore62720c7bc246e', ''),
 (68, 'fashionstore62721075a6aea', ''),
-(69, 'fashionstore627567ad932c6', '');
+(69, 'fashionstore627567ad932c6', ''),
+(70, 'fashionstore6275ec4e9b341', ''),
+(71, 'fashionstore627603ca86868', 't');
 
 -- --------------------------------------------------------
 
@@ -113,7 +118,6 @@ DROP TABLE IF EXISTS `orderitems`;
 CREATE TABLE `orderitems` (
   `order_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
   `size` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -177,7 +181,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `item`

@@ -28,6 +28,7 @@ class Clients {
 
         $client = new webservice\model\Client();
         $client->api_key = $theRequest["apikey"];
+        $client->email = $theRequest["email"];
         $client->token = "";
         $client->insertClient();
 

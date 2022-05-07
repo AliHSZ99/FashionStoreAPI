@@ -1,0 +1,61 @@
+openapi: 3.0.0
+info:
+  title: FashionStoreAPI
+  contact:
+    email: api@fashionstoreapi.com
+  version: 1.0.0
+paths:
+  /webservice/api/item/getAll:
+    get:
+      operationId: 787d9774fc0e568fa49fdffc75679d8c
+      responses:
+        '200':
+          description: 'Retrieves information all the items from the database.'
+  /webservice/api/item/populate:
+    get:
+      operationId: 7e602151354bcb7dc8cba8c7a661acc2
+      responses:
+        '200':
+          description: 'Populates the database via the ASOS Api.'
+  /webservice/api/item/item_id:
+    get:
+      operationId: 8e754885a9fa57341189b925cb345a79
+      responses:
+        '200':
+          description: 'Retrieves information of one specific item.'
+  /webservice/api/cart/getAllItems:
+    get:
+      operationId: a5e355bc048f2e0310df38d5d79d171e
+      responses:
+        '200':
+          description: 'Retrieves all the items information from the user.'
+  /webservice/api/auth/index:
+    post:
+      operationId: 1e9c28ed776e26dae54bdb91918f9a96
+      responses:
+        '200':
+          description: 'Generates token for user if they do not have one.'
+  /webservice/api/clients/addClient:
+    post:
+      operationId: dc8e6dc6197266714fae053bff4b1c39
+      responses:
+        '200':
+          description: 'Adds a client using guest information.'
+  /webservice/api/cart/addToCart:
+    post:
+      operationId: e02ba7b00df4fe32072866c6f9437167
+      responses:
+        '200':
+          description: 'Add an item to your cart.'
+  /webservice/api/cart/removeFromCart:
+    post:
+      operationId: 7918bfcf8b757843928ca45eeb261b12
+      responses:
+        '200':
+          description: 'Remove an item from your cart.'
+  /webservice/api/cart/removeAllFromCart:
+    post:
+      operationId: 6bfb4b5158f532353f0386bfd130e49d
+      responses:
+        '200':
+          description: 'Remove all items from your cart.'

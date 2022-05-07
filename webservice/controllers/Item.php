@@ -14,7 +14,32 @@ use Firebase\JWT\Key;
     class Item {
 
         function getData($ID) {
+            // Create the logger
+            $logger = new Logger('my_logger');
+            // Now add some handlers
+            $logger->pushHandler(new StreamHandler('/xampp/htdocs/webservice/webservice.log', Logger::DEBUG));
+            $logger->pushHandler(new FirePHPHandler());
 
+            
+            $info = file_get_contents("php://input");
+            $info = json_decode($info, true);
+            
+            $headers = apache_request_headers();
+            // var_dump($headers);
+            
+            $authorizationHeader = $headers["Authorization"];
+            $authorizationParts = explode(" ", $authorizationHeader);
+            $key = "ali";
+            $jwt = $authorizationParts[1];
+            try {
+                $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
+            } catch (Exception $e) {
+                return "Invalid token";
+                $logger->error("\nInvalid Token was used to get data of an item");
+            }
+           
+            $logger->info("\nGetting data for item with ID: " . $ID);
+            
             header('content-type: application/json');
             $responsepayload = '';
             $item = new \webservice\model\Item();
@@ -36,6 +61,8 @@ use Firebase\JWT\Key;
             // Now add some handlers
             $logger->pushHandler(new StreamHandler('/xampp/htdocs/webservice/webservice.log', Logger::DEBUG));
             $logger->pushHandler(new FirePHPHandler());
+
+            $logger->info("\nGetting all data for items");
 
             $headers = apache_request_headers();
             // var_dump($headers);

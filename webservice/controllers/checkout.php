@@ -17,53 +17,53 @@ use Firebase\JWT\Key;
 class Checkout {
 
     public function checkout() {
-        // Create the logger    
-        $info = file_get_contents("php://input");
-        $info = json_decode($info, true);
-        $client = new webservice\model\Client();
-        $client = $client->getClientByEmail($info["email"]);
+        // // Create the logger    
+        // $info = file_get_contents("php://input");
+        // $info = json_decode($info, true);
+        // $client = new webservice\model\Client();
+        // $client = $client->getClientByEmail($info["email"]);
 
 
-        $logger = new Logger('my_logger');
-        // Now add some handlers
-        $logger->pushHandler(new StreamHandler('/xampp/htdocs/webservice/webservice.log', Logger::DEBUG));
-        $logger->pushHandler(new FirePHPHandler());
+        // $logger = new Logger('my_logger');
+        // // Now add some handlers
+        // $logger->pushHandler(new StreamHandler('/xampp/htdocs/webservice/webservice.log', Logger::DEBUG));
+        // $logger->pushHandler(new FirePHPHandler());
 
-        $headers = apache_request_headers();
-        // var_dump($headers);
+        // $headers = apache_request_headers();
+        // // var_dump($headers);
     
-        $authorizationHeader = $headers["Authorization"];
-        $authorizationParts = explode(" ", $authorizationHeader);
-        $key = "ali";
-        $jwt = $authorizationParts[1];
+        // $authorizationHeader = $headers["Authorization"];
+        // $authorizationParts = explode(" ", $authorizationHeader);
+        // $key = "ali";
+        // $jwt = $authorizationParts[1];
 
-        try {
-            $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
-        } catch (Exception $e) {
-            echo "Invalid Token";
-            $logger->error("\nInvalid Token was used");
-        }
+        // try {
+        //     $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
+        // } catch (Exception $e) {
+        //     echo "Invalid Token";
+        //     $logger->error("\nInvalid Token was used");
+        // }
         
-        $logger->info("\nCheckout items are being retrieved");
+        // $logger->info("\nCheckout items are being retrieved");
 
-        header('content-type: application/json');
-        $items = new webservice\model\Checkout();
-        $items = $items->getAllItems($client->client_id);
-        foreach ($items as $item) {
-            $addArray = array();
-            $addArray["client_id"] = strval($item->client_id);
-            $addArray["item_id"] = strval($item->item_id);
-            $addArray["size"] = strval($item->size);
-            $itemsPayload[] = $addArray;
-        }
+        // header('content-type: application/json');
+        // $items = new webservice\model\Checkout();
+        // $items = $items->getAllItems($client->client_id);
+        // foreach ($items as $item) {
+        //     $addArray = array();
+        //     $addArray["client_id"] = strval($item->client_id);
+        //     $addArray["item_id"] = strval($item->item_id);
+        //     $addArray["size"] = strval($item->size);
+        //     $itemsPayload[] = $addArray;
+        // }
 
-        $itemsPayload = json_encode($itemsPayload);
+        // $itemsPayload = json_encode($itemsPayload);
 
-        return $itemsPayload;
+        // return $itemsPayload;
 
     }
 
-    public function hello() {
+    public function getAllItems() {
         $info = file_get_contents("php://input");
         $info = json_decode($info, true);
 
@@ -76,6 +76,7 @@ class Checkout {
         $items = new webservice\model\OrderItems();
         $items = $items->getItems($client->client_id);
         $itemObject = new webservice\model\Item();
+        $itemsPayload = array();
         foreach ($items as $item) {
             $itemObject = $itemObject->get($item->item_id);
             $addArray = array();
@@ -89,7 +90,7 @@ class Checkout {
         }
         $itemsPayload = json_encode($itemsPayload);
         return $itemsPayload;
-}
+    }
 
 
 }

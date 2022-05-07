@@ -11,9 +11,9 @@ class Client extends \webservice\core\Model {
     public $email;
 
     public function insertClient(){
-      $SQL = 'INSERT INTO client(api_key) VALUES (:api_key)';
+      $SQL = 'INSERT INTO client(api_key, email) VALUES (:api_key, :email)';
       $STMT = self::$_connection->prepare($SQL);
-      $STMT->execute(['api_key' => $this->api_key]);
+      $STMT->execute(['api_key' => $this->api_key, "email" => $this->email]);
 	  }
 
     public function get($clientID) {

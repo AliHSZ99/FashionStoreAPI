@@ -82,16 +82,25 @@
 
 			switch($accept){
 				case 'application/json':
-					if ($_GET['item'] == 'getAll') {
-						$responsepayload = $this->Controller->getAllData();
-						echo $responsepayload;
-					} else if ($_GET['item'] == 'populate'){
-						$responsepayload = $this->Controller->populateItemTable();
-						echo $responsepayload;
-					} else {
-						$responsepayload = $this->Controller->getData($_GET['item']);
-						echo $responsepayload;
-
+					if (isset($_GET["item"])) {
+						if ($_GET['item'] == 'getAll') {
+							$responsepayload = $this->Controller->getAllData();
+							echo $responsepayload;
+						} else if ($_GET['item'] == 'populate'){
+							$responsepayload = $this->Controller->populateItemTable();
+							echo $responsepayload;
+						} else {
+							$responsepayload = $this->Controller->getData($_GET['item']);
+							echo $responsepayload;
+						}
+					} else if (isset($_GET["cart"])) {
+						if ($_GET['cart'] == 'getAllItems') { 
+							$responsepayload = $this->Controller->getAllItems();
+							echo $responsepayload;
+						} else if ($_GET['cart'] == 'removeAllFromCart') {
+							$responsepayload = $this->Controller->removeAllFromCart();
+							echo $responsepayload;
+						} 
 					}
 					break;
 				//handle other formats
@@ -128,13 +137,7 @@
 						} else if ($_GET['cart'] == 'removeFromCart') {
 							$responsepayload = $this->Controller->removeFromCart();
 							echo $responsepayload;
-						} else if ($_GET['cart'] == 'removeAllFromCart') {
-							$responsepayload = $this->Controller->removeAllFromCart();
-							echo $responsepayload;
 						}
-					} else if (isset($_GET["checkout"])) {
-						$responsepayload = $this->Controller->hello();
-						echo $responsepayload;
 					}
 				//handle other formats
 			}
