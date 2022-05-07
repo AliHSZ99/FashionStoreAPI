@@ -50,5 +50,31 @@
 			</div>
 		</nav>
 	</div>
+
+	
+	<!-- Div for the logo -->
+	<div style="margin-top: 10%">
+		
+		<!-- Div for the loginBox -->
+		<div id="loginBox" class="container-box">
+			<nav class="navbar navbar-expand-sm navbar-light">
+				<div class="container-fluid d-flex">
+					<ul class="navbar-nav loginNavList">
+						<li class="nav-item loginNav" style="border-bottom: none">
+							<a class="nav-link h3" href="/Main/checkout" style="margin-left: 280%; width: 300px">Items Purchased</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<div id = "loginForm">
+				<center style="margin-right: 0%;">
+					<h2>THANK YOU FOR YOUR PURCHASE!</h2>
+					<p>We hope you are happy with our services :)</p> <br>
+				</center>
+			</div>
+		</div>
+	</div>
+
+
 </body>
 </html>

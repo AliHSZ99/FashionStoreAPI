@@ -2,7 +2,7 @@
 
 namespace webservice\model;
 
-require(dirname(__DIR__)."\\core\\Model.php");
+require_once(dirname(__DIR__)."\\core\\Model.php");
 
 class Item extends \webservice\core\Model {
 

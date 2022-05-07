@@ -2,6 +2,8 @@
 
 include(dirname(__DIR__)."\\core\\Model.php");
 require(dirname(__DIR__)."\\model\\Client.php");
+require(dirname(__DIR__)."\\model\\OrderItems.php");
+require_once(dirname(__DIR__)."\\model\\Item.php");
 
 include "\\xampp\\htdocs\\vendorJWT\\autoload.php";
 include "\\xampp\\htdocs\\vendorLogger\\autoload.php";
@@ -60,5 +62,34 @@ class Checkout {
         return $itemsPayload;
 
     }
+
+    public function hello() {
+        $info = file_get_contents("php://input");
+        $info = json_decode($info, true);
+
+        $client = new webservice\model\Client();
+        $client->api_key = $info['apikey'];
+        $client = $client->getClientByAPIKey();
+
+        header('content-type: application/json');
+
+        $items = new webservice\model\OrderItems();
+        $items = $items->getItems($client->client_id);
+        $itemObject = new webservice\model\Item();
+        foreach ($items as $item) {
+            $itemObject = $itemObject->get($item->item_id);
+            $addArray = array();
+            $addArray['item_id'] = strval($itemObject->item_id);
+            $addArray["item_name"] = strval($itemObject->item_name);
+            $addArray["item_price"] = strval($itemObject->item_id);
+            $addArray["item_type"] = strval($itemObject->item_brand);
+            $addArray["item_brand"] = strval($itemObject->item_color);
+            $addArray["item_price"] = strval($itemObject->item_price);
+            $itemsPayload[] = $addArray;
+        }
+        $itemsPayload = json_encode($itemsPayload);
+        return $itemsPayload;
+}
+
 
 }

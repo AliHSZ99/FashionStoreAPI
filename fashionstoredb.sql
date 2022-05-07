@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2022 at 05:57 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.28
+-- Generation Time: May 07, 2022 at 03:01 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -47,7 +47,8 @@ CREATE TABLE `guest` (
 
 INSERT INTO `guest` (`guest_id`, `email`, `first_name`, `last_name`, `password_hash`, `phone_number`, `api_key`, `token`) VALUES
 (140, 'ii', 'ii', 'ii', '$2y$10$22yAVWND3BCO8QxBi3ULY.babyQ80SjgjN5Rtfyjc7Ga6RNkPnv9G', 'ii', 'fashionstore6271f8523ea17', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L0F1dGgvaW5kZXgiLCJpYXQiOjE2NTE2MzYzMDgsImV4cCI6MTY1NDI2NDMwOH0.hve0Kaw4ORFsVcQZU8VXiXoFvwKgIRh_ffYuBbWmE2c'),
-(141, ';', ';', ';', '$2y$10$n5kXMxt3G82B/HQxQxIQfeRtc2JgC.6EU4mK1/w/9zKuhclN2h8NO', ';', 'fashionstore6271f918b6bf5', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L0F1dGgvaW5kZXgiLCJpYXQiOjE2NTE2MzY1MDYsImV4cCI6MTY1NDI2NDUwNn0.nJHM37VwGHe-veyaH2CvgEBEbFxAmXj9lOsVGywtfmk');
+(141, ';', ';', ';', '$2y$10$n5kXMxt3G82B/HQxQxIQfeRtc2JgC.6EU4mK1/w/9zKuhclN2h8NO', ';', 'fashionstore6271f918b6bf5', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L0F1dGgvaW5kZXgiLCJpYXQiOjE2NTE2MzY1MDYsImV4cCI6MTY1NDI2NDUwNn0.nJHM37VwGHe-veyaH2CvgEBEbFxAmXj9lOsVGywtfmk'),
+(142, 'f', 'f', 'f', '$2y$10$LoonstqCvhzsMpcs87U8nOhRlNBW5OkV4Jl41NDIOUkaNmPwfZgcy', 'f', 'fashionstore627567ad932c6', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L0F1dGgvaW5kZXgiLCJpYXQiOjE2NTE4NjE0MjMsImV4cCI6MTY1NDQ4OTQyM30._DXLEzbEmTAJTLEABrKiISFZtS4qZcBCbb7TH74eOrU');
 
 -- --------------------------------------------------------
 
@@ -62,8 +63,15 @@ CREATE TABLE `wishlist` (
   `item_id` int(11) NOT NULL,
   `item_name` varchar(100) NOT NULL,
   `item_price` int(11) NOT NULL,
-  `image_url` varchar(100) NOT NULL
+  `image_url` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `wishlist`
+--
+
+INSERT INTO `wishlist` (`wishlist_id`, `guest_id`, `item_id`, `item_name`, `item_price`, `image_url`) VALUES
+(13, 142, 19, 'ASOS DESIGN splice print sweatshirt in brown - part of a set', 45, 'images.asos-media.com/products/asos-design-splice-print-sweatshirt-in-brown-part-of-a-set/201608003-1-chocolatebrown');
 
 --
 -- Indexes for dumped tables
@@ -90,13 +98,13 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `wishlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `wishlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

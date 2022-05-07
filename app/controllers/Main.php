@@ -70,18 +70,6 @@ class Main extends \app\core\Controller {
 		$this->view('Main/index', $contents);
 	}
 
-	public function insert()
-	{
-
-		if(isset($_POST['action'])) 
-		{
-			//redirect the user back to the index
-			header('location:/Main/index');
-
-		} else //1 present a form to the user
-			$this->view('Main/addAnimal');
-	}
-
 	public function about() 
 	{
 		$this->view('Main/about');
@@ -116,7 +104,47 @@ class Main extends \app\core\Controller {
 		$guest = new \app\models\Guest();
 		$guest = $guest->getGuestByEmail($_SESSION["email"]);
 
-		$this->view('Main/cart');
+		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
+		$POST = ["apikey" => $guest->api_key];
+		$POST = json_encode($POST);
+		$request = [
+			"headers" => ['accept' => 'application/json', 'content-type' => 'application/json'], 
+			"body" => $POST
+		];
+		if (isset($_POST["action"])) {
+			header("location:/Main/checkout");
+		}
+		
+		$response = $client->request("POST", "checkout/hello", $request);
+		$body = $response->getBody()->getContents();
+		$body = json_decode($body);
+		// var_dump($body);
+		$this->view('Main/cart', $body);
+	}
+
+	public function checkout() {
+		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
+		// $cart->addToCart($_SESSION["guest_id"], $item_id);
+			$guest = new \app\models\Guest();
+			$guest = $guest->getGuestByEmail($_SESSION["email"]);
+			$POST = ["api_key" => $guest->api_key];
+			$POST = json_encode($POST);
+			//WE ALWAYS TO ADD THE AUTHORIZATION HEADER IN HERE TO VERIFY TOKEN IN THE BACKEND!
+			//DO THIS WHEN WE FIX TOKEN OK
+			$request = [
+				"headers" => ['accept' => 'application/json', 'content-type' => 'application/json'],
+				"body" => $POST
+			];
+
+			$response = $client->request("POST", "cart/removeAllFromCart", $request);
+			$body = $response->getBody()->getContents();
+			// var_dump($body);
+			if ($body == 'noitems') {
+				header("location:/Main/cart");
+			} else {
+			$body = json_decode($body);
+			$this->view('Main/checkout');
+			}
 	}
 
 	public function delete($animal_id){//delete a record with the known animal_id PK value
@@ -309,6 +337,26 @@ class Main extends \app\core\Controller {
 		$this->view('Main/wishlist');
 	}
 
+	public function removeFromCart($item_id) {
+		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
+		// $cart->addToCart($_SESSION["guest_id"], $item_id);
+			$guest = new \app\models\Guest();
+			$guest = $guest->getGuestByEmail($_SESSION["email"]);
+			$POST = ["api_key" => $guest->api_key, "item_id" => $item_id];
+			$POST = json_encode($POST);
+			//WE ALWAYS TO ADD THE AUTHORIZATION HEADER IN HERE TO VERIFY TOKEN IN THE BACKEND!
+			//DO THIS WHEN WE FIX TOKEN OK
+			$request = [
+				"headers" => ['accept' => 'application/json', 'content-type' => 'application/json'],
+				"body" => $POST
+			];
+
+			$response = $client->request("POST", "cart/removeFromCart", $request);
+			$contents = $response->getBody()->getContents();
+			header('location:/Main/Cart');
+			return;
+	}
+
 	// This method is to add an item cart or add item on their wish list
 	public function addToCart($item_id) {
 		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
@@ -327,7 +375,7 @@ class Main extends \app\core\Controller {
 
 			$response = $client->request("POST", "cart/addToCart", $request);
 			$contents = $response->getBody()->getContents();
-			$this->view('Main/cart', $contents);
+			header('location:/Main/index');
 			return;
 		}
 
@@ -388,6 +436,5 @@ class Main extends \app\core\Controller {
 
 		$this->view('Main/wishlist', $wishlists);
 	}
-
 
 }

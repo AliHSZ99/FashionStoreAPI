@@ -125,9 +125,15 @@
 						if ($_GET["cart"] == "addToCart") {
 							$responsepayload = $this->Controller->addToCart();
 							echo $responsepayload;
+						} else if ($_GET['cart'] == 'removeFromCart') {
+							$responsepayload = $this->Controller->removeFromCart();
+							echo $responsepayload;
+						} else if ($_GET['cart'] == 'removeAllFromCart') {
+							$responsepayload = $this->Controller->removeAllFromCart();
+							echo $responsepayload;
 						}
 					} else if (isset($_GET["checkout"])) {
-						$responsepayload = $this->Controller->checkout($_GET["checkout"]);
+						$responsepayload = $this->Controller->hello();
 						echo $responsepayload;
 					}
 				//handle other formats

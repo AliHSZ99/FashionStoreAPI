@@ -59,33 +59,36 @@
 
 	<p id="cartTitle">YOUR CART</p>
 
-	<?php
-
-	var_dump($data);
-	?>
 
 	<!-- For the Cart Table -->
 	<div>
 		<div id="cartTable"> 
 			<table class="table table-light table-striped">
 				<thead>
-					<tr>
-						<th scope="col">Remove</th>
-						<th scope="col">item</th>
-						<th scope="col">price</th>
-						<th scope="col">quantity</th>
-						<th scope="col">total</th>
-					</tr>
+				<tr>
+					<th scope='col'>Remove</th>
+					<th scope='col'>item</th>
+					<th scope='col'>price</th>
+				</tr>
 				</thead>
+				<?php
+				$total = 0;
+				if ($data != null) {
+				for ($i = 0; $i < count($data); $i++) {
+					$total += $data[$i]->item_price;
+					echo "
 				<tbody>
 					<tr>
-						<th>x</th>
-						<td>Fashion wear 1</td>
-						<td>$120</td>
-						<td>10</td>
-						<td>$450</td>
+						<th><a href='/Main/removeFromCart/{$data[$i]->item_id}'>x</a></th>
+						<td>{$data[$i]->item_name}</td>
+						<td>\${$data[$i]->item_price}</td>
 					</tr>		
 				</tbody>
+				";
+				}
+			}
+				?>
+				
 			</table>
 		</div>
 	</div>
@@ -93,9 +96,11 @@
 	<!-- For the Total and Check Out Button -->
 	<div id="checkoutAndPriceBox" class="d-flex bd-highlight">
 		<div id="priceBox">
-			<p class="flex-lg-fill bd-highlight">Total: $477</p>
+			<p class="flex-lg-fill bd-highlight"><?php echo "Total: \${$total}"?></p>
 		</div>
-		<input id='checkoutButton' class="flex-sm-fill bd-highlight" type='submit' name='action' value='CHECKOUT'/>
+		<form action="" method="POST">
+			<input id='checkoutButton' class="flex-sm-fill bd-highlight" type='submit' name='action' value='CHECKOUT'/>
+		</form>
 	</div>
 	
 </body>
