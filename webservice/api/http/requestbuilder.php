@@ -5,6 +5,7 @@
 	// Create a new instance of the request and initialize it by setting its fields
 	// we are using the Factory pattern to some extent
 	
+	// This class is used to build the actual request. 
 	class RequestBuilder{
 		
 		private $Request;

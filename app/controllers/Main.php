@@ -2,7 +2,6 @@
 namespace app\controllers;
 
 include "\\xampp\\htdocs\\vendor\\autoload.php";
-
 include "\\xampp\\htdocs\\vendorLogger\\autoload.php";
 
 use Monolog\Logger;
@@ -11,6 +10,7 @@ use Monolog\Handler\FirePHPHandler;
 
 class Main extends \app\core\Controller {
 	
+	// The main page where all the items are displayed. 
 	public function index()
 	{
 		// Create the logger
@@ -19,10 +19,12 @@ class Main extends \app\core\Controller {
 		$logger->pushHandler(new StreamHandler('/xampp/htdocs/app/clientApplication.log', Logger::DEBUG));
 		$logger->pushHandler(new FirePHPHandler());
 
+		// Creating a client for request. 
 		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
 		$guest = new \app\models\Guest();
 		$guest = $guest->getGuestByEmail($_SESSION["email"]);
 		$tokenWithBearer = "";
+		// Checking if the user has a token, if not, it requests for one. 
 		if ($guest->token == "") {
 			$logger->info("\nUser with id $guest->guest_id and email {$_SESSION['email']} has no token and is trying to authenticate");
 
@@ -33,32 +35,23 @@ class Main extends \app\core\Controller {
 				"body" => $POST
 			];
 
+			// User getting the token in the response and storing it in the database.
 			$response = $client->request("POST", "auth/index", $request);
-			// THIS IS IMPORTANT FOR GUZZLE
-			// print_r($response);
-
-			// $body = $response->getBody()->getContents();
-			// $arr_body = json_decode($body, true);
-			// print_r($arr_body);
-
-			// $headers = $response->getHeaders();
-			// print_r($headers);
-
 			$tokenWithBearer = $response->getHeader('WWWW-Authenticate')[0];
 			$splitToken = explode(" ", $tokenWithBearer);
-			// echo "<br>";
-			// print_r($tokenWithBearer);
 			$token = $splitToken[1];
 			$guest->token = $token;
 			$guest->addToken();
 		}
 
+		// Creating request for all items to be displayed using the token. 
 		$tokenWithBearer = "Bearer ".$guest->token;
 		$request = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json', 'Authorization' => $tokenWithBearer]];
 		// echo "<br><br><br>". $tokenWithBearer;
 		$response = $client->request('GET', 'item/getAll', $request);
 		$contents = $response->getBody()->getContents();
 		$contents = json_decode($contents);
+		// If an array is not returned, it means that the token was invalid. The user is redirected to an error page.
 		if (!is_array($contents)) {
 			header("location: /ErrorPages/error401");
 
@@ -70,6 +63,7 @@ class Main extends \app\core\Controller {
 		$this->view('Main/index', $contents);
 	}
 
+	// Brings the user to the about page. 
 	public function about() 
 	{
 		$this->view('Main/about');
@@ -94,6 +88,7 @@ class Main extends \app\core\Controller {
 	// echo $decoded->licenseNumber;
 	}
 
+	// Brings the user to their cart page. 
 	public function cart() {
 		// Create the logger
 		$logger = new Logger('my_logger');
@@ -104,17 +99,19 @@ class Main extends \app\core\Controller {
 		$guest = new \app\models\Guest();
 		$guest = $guest->getGuestByEmail($_SESSION["email"]);
 
+		// Creating request for all items in cart to be displayed in the cart using the user's token.
 		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
 		$request = ["headers" => ['accept' => 'application/json', 'content-type' => 'application/json', 'Authorization' => "Bearer ".$guest->token],
 			"body" => json_encode(["email" => $_SESSION["email"]])];
+		// If the checkout button is pressed, the checkout method is called. 
 		if (isset($_POST["action"])) {
 			header("location:/Main/checkout");
 		}
 		
 		$response = $client->request("GET", "cart/getAllItems", $request);
 		$body = $response->getBody()->getContents();
-		// var_dump($body);
 		$body = json_decode($body);
+		// If an array is not returned, it means that the token was invalid. The user is redirected to an error page.
 		if (!is_array($body)) {
 			header("location: /ErrorPages/error401");
 
@@ -123,6 +120,7 @@ class Main extends \app\core\Controller {
 		$this->view('Main/cart', $body);
 	}
 
+	// This method is called when the user clicks the checkout button.
 	public function checkout() {
 		// Create the logger
 		$logger = new Logger('my_logger');
@@ -140,18 +138,21 @@ class Main extends \app\core\Controller {
 
 		$response = $client->request("GET", "cart/removeAllFromCart", $request);
 		$body = $response->getBody()->getContents();
-		// var_dump($body);
+		// Refresh the cart page if no items were in the cart.
+		// Send user to the 401 error page if the token is invalid.
+		// If the cart had items, remove all items from cart and send user to the checkout page.
 		if ($body == 'noitems') {
 			header("location:/Main/cart");
 		} else if ($body == "Invalid token") {
 			header("location: /ErrorPages/error401");
 			$logger->notice("\nUser is being redirected to error page 401");
 		} else {
-		$body = json_decode($body);
-		$this->view('Main/checkout');
+			$body = json_decode($body);
+			$this->view('Main/checkout');
 		}
 	}
 
+	// This method is used to generate an API key for a newly registered user.
 	public function generateApiKey() {
 		// Create the logger
 		$logger = new Logger('my_logger');
@@ -160,10 +161,12 @@ class Main extends \app\core\Controller {
 		$logger->pushHandler(new FirePHPHandler());
 		$logger->info("\nAn API key has been generated");
 
+		// Return the API key.
 		return "fashionstore". uniqid();
 
 	}
 
+	// This method is used to register a new user by displaying the register page with its form.
 	public function register(){
 		// Create the logger
 		$logger = new Logger('my_logger');
@@ -186,6 +189,7 @@ class Main extends \app\core\Controller {
 			$password = $_POST['password'];
 			$passwordConfirm = $_POST['password_confirm'];
 
+			// Check if the passwords match.
 			if ($password == $passwordConfirm) {
 				$guest->password = $password;
 				$guest->api_key = $this->generateApiKey();
@@ -195,7 +199,7 @@ class Main extends \app\core\Controller {
 				$logger->info("\nA user just registered to the website");
 
 				$guest = $guest->getGuestByEmail($_POST['email']);
-				// make a POST request to save API key to the webservice
+				// make a POST request to save the new client to the web service. 
 				$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
 				$POST = ["guest_id" => $guest->guest_id, "apikey" => $guest->api_key, "email" => $guest->email];
 				$POST = json_encode($POST);
@@ -205,9 +209,8 @@ class Main extends \app\core\Controller {
 				];
 				$response = $client->request("POST", "clients/addClient", $request);
 				$body = $response->getBody()->getContents();
-				// echo $body;
-				// print_r($body);
 
+				// The user gets sent to the login page after this process. 
 				header('location:/Main/login');
 				return;
 			} else {
@@ -219,7 +222,7 @@ class Main extends \app\core\Controller {
 		}
 	}
 
-	
+	// The method is used to login a user.
 	public function login(){
 		// Create the logger
 		$logger = new Logger('my_logger');
@@ -227,10 +230,12 @@ class Main extends \app\core\Controller {
 		$logger->pushHandler(new StreamHandler('/xampp/htdocs/app/clientApplication.log', Logger::DEBUG));
 		$logger->pushHandler(new FirePHPHandler());
 
+		// Check if the login button was clicked.
 		if (isset($_POST['action'])) {
 			$guest = new \app\models\Guest();
 			$guest = $guest->getGuestByEmail($_POST['email']);
 
+			// Check user infor before logging them in.
 			if ($guest != false && password_verify($_POST['password'], $guest->password_hash)) {
 				$_SESSION['guest_id'] = $guest->guest_id;
 				$_SESSION['email'] = $guest->email;
@@ -247,6 +252,7 @@ class Main extends \app\core\Controller {
 		}
 	}
 
+	// This method is used to allow the user to go to the settings page.
 	public function settings()
 	{
 		// Create the logger
@@ -256,10 +262,12 @@ class Main extends \app\core\Controller {
 		$logger->pushHandler(new FirePHPHandler());
 
 
+		// Check if the logout button was clicked.
 		if (isset($_POST["action"])) {
 			header("location:/Main/logout");
 		}
 
+		// Check if the user entered a new password.
 		if (isset($_POST["newPasswordClicked"])) {
 			$guest = new \app\models\Guest();
 			$guest->password = $_POST["password"];
@@ -287,7 +295,7 @@ class Main extends \app\core\Controller {
 		header('location:/Main/login');
 	}
 
-	// This method is for testing purpsoses only
+	// This method is called when the user clicks on a specific item in the store. 
 	public function quickShopButton($item_id){
 		// Create the logger
 		$logger = new Logger('my_logger');
@@ -298,11 +306,12 @@ class Main extends \app\core\Controller {
 		$guest = new \app\models\Guest();
 		$guest = $guest->getGuestByEmail($_SESSION["email"]);
 
+		// Creating a GET request to get the specific item the user clicked on.
 		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
 		$request = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json', "Authorization" => "Bearer " . $guest->token]];
-		// echo "<br><br><br>". $tokenWithBearer;
 		$response = $client->request('GET', "item/$item_id", $request);
 		$contents = $response->getBody()->getContents();
+		// Send the user to the 401 error page if an invalid token was used. 
 		if ($contents == "Invalid token") {
 			header("location: /ErrorPages/error401");
 			$logger->notice("\nUser is being redirected to error page 401");
@@ -332,6 +341,7 @@ class Main extends \app\core\Controller {
 		$this->view('Main/wishlist');
 	}
 
+	// This method is used to remove a specific item from the cart.
 	public function removeFromCart($item_id) {
 		// Create the logger
 		$logger = new Logger('my_logger');
@@ -340,27 +350,26 @@ class Main extends \app\core\Controller {
 		$logger->pushHandler(new FirePHPHandler());
 
 		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
-		// $cart->addToCart($_SESSION["guest_id"], $item_id);
-			$guest = new \app\models\Guest();
-			$guest = $guest->getGuestByEmail($_SESSION["email"]);
-			$POST = ["item_id" => $item_id, "email" => $_SESSION["email"]];
-			$POST = json_encode($POST);
-			//WE ALWAYS TO ADD THE AUTHORIZATION HEADER IN HERE TO VERIFY TOKEN IN THE BACKEND!
-			//DO THIS WHEN WE FIX TOKEN OK
-			$request = [
-				"headers" => ['accept' => 'application/json', 'content-type' => 'application/json', "Authorization" => "Bearer " . $guest->token],
-				"body" => $POST
-			];
+		$guest = new \app\models\Guest();
+		$guest = $guest->getGuestByEmail($_SESSION["email"]);
+		$POST = ["item_id" => $item_id, "email" => $_SESSION["email"]];
+		$POST = json_encode($POST);
+		//WE ALWAYS TO ADD THE AUTHORIZATION HEADER IN HERE TO VERIFY TOKEN IN THE BACKEND!
+		$request = [
+			"headers" => ['accept' => 'application/json', 'content-type' => 'application/json', "Authorization" => "Bearer " . $guest->token],
+			"body" => $POST
+		];
 
-			$response = $client->request("POST", "cart/removeFromCart", $request);
-			$contents = $response->getBody()->getContents();
-			// var_dump($contents);
-			if ($contents == "Invalid token") {
-				header("location: /ErrorPages/error401");
-				$logger->notice("\nUser is being redirected to error page 401");
-			} else {
-				header('location:/Main/Cart');
-			}
+		$response = $client->request("POST", "cart/removeFromCart", $request);
+		$contents = $response->getBody()->getContents();
+		// Send the user to the 401 error page if an invalid token was used.
+		// Allow the user to proceed to the cart page if the item was successfully removed from the cart.
+		if ($contents == "Invalid token") {
+			header("location: /ErrorPages/error401");
+			$logger->notice("\nUser is being redirected to error page 401");
+		} else {
+			header('location:/Main/Cart');
+		}
 	}
 
 	// This method is to add an item cart or add item on their wish list
@@ -372,14 +381,12 @@ class Main extends \app\core\Controller {
 		$logger->pushHandler(new FirePHPHandler());
 
 		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
-		// $cart->addToCart($_SESSION["guest_id"], $item_id);
+		$guest = new \app\models\Guest();
+		$guest = $guest->getGuestByEmail($_SESSION["email"]);
 		if (isset($_POST['action'])) {
-			$guest = new \app\models\Guest();
-			$guest = $guest->getGuestByEmail($_SESSION["email"]);
 			$POST = ["item_id" => $item_id, "size" => $_POST["size"], "email" => $_SESSION["email"]];
 			$POST = json_encode($POST);
 			//WE ALWAYS TO ADD THE AUTHORIZATION HEADER IN HERE TO VERIFY TOKEN IN THE BACKEND!
-			//DO THIS WHEN WE FIX TOKEN OK
 			$request = [
 				"headers" => ['accept' => 'application/json', 'content-type' => 'application/json', "Authorization" => "Bearer " . $guest->token],
 				"body" => $POST
@@ -387,6 +394,8 @@ class Main extends \app\core\Controller {
 
 			$response = $client->request("POST", "cart/addToCart", $request);
 			$contents = $response->getBody()->getContents();
+			// Send the user to the 401 error page if an invalid token was used.
+			// Allow the user to proceed to the main (index) page if the item was successfully added to the cart.
 			if ($contents == "Invalid token") {
 				$logger->notice("\nUser is being redirected to error page 401");
 				header("location: /ErrorPages/error401");
@@ -396,10 +405,11 @@ class Main extends \app\core\Controller {
 			}
 		}
 
-		// Use to add the data in the wishlist table
+		// Use to add the data in the wishlist table (When the add to wishlist button is clicked). 
 		if (isset($_POST['addToWishlist'])) {
 			$wishlist = new \app\models\Wishlist();
-			$request = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json']];
+			// Create a request to GET the item from the API. 
+			$request = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json', "Authorization" => "Bearer " . $guest->token]];
 			$response = $client->request('GET', "item/$item_id", $request);
 			$contents = $response->getBody()->getContents();
 			$contents = json_decode($contents);
@@ -419,30 +429,7 @@ class Main extends \app\core\Controller {
 		$this->view('Main/cart');
 	}
 
-	public function getAllItemsForCart() {
-		// Create the logger
-		$logger = new Logger('my_logger');
-		// Now add some handlers
-		$logger->pushHandler(new StreamHandler('/xampp/htdocs/app/clientApplication.log', Logger::DEBUG));
-		$logger->pushHandler(new FirePHPHandler());
-		
-		$guest = new \app\models\Guest();
-		$client = new \GuzzleHttp\Client(['base_uri' => 'http://localhost/webservice/api/']);
-		$guest = $guest->getGuestByEmail($_SESSION["email"]);
-		$email = json_encode(["email" => $guest->email]);
-		$request = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json', 'Authorization' => 'Bearer ' . $guest->token], "body" => $email];
-		$response = $client->request('POST', "checkout/".$guest->email, $request);
-		$contents = json_decode($response->getBody()->getContents());
-
-		// if (!is_array($contents)) {
-		// 	header("location: /ErrorPages/error401");
-
-		// 	$logger->notice("\nUser is being redirected to error page 401");
-		// }
-		echo "Hello ". $contents;
-		$this->view('Main/cart', $contents);
-	}
-
+	// This method is used to bring the user to their wishlist page.
 	public function goToWishlist() {
 		$wishlist = new \app\models\Wishlist();
 		$wishlists = $wishlist->getAllWishlist($_SESSION['guest_id']);
@@ -450,6 +437,7 @@ class Main extends \app\core\Controller {
 		$this->view('Main/wishlist', $wishlists);
 	}
 
+	// This method is used to remove an item from the wishlist.
 	public function removeToWishlist($item_id) {
 		$wishlist = new \app\models\Wishlist();
 		if(isset($_POST['removeItem'])) {

@@ -62,16 +62,6 @@
 				<div class="row row-cols-3 items">
 					<!-- Add the for loop here to add more items -->
 					<!-- Put the div with class called col inside of the for loop -->
-					<!-- <div class="col">
-						<div class="itemBox">
-							<img src="/app/images/jeremie.jpg">
-							<br>
-							<a class="h4" href="/Main/quickShopButton">I Love Mayuri Shirt</a>
-							<p>$69.69</p> -->
-							<!-- Add the guest id after /removeWishlist -->
-                            <!-- <a href="/Main/removeWishlist"><img src="/app/images/withstar.png" style='height: 40px; width: 40px; margin-bottom: 5%'alt=""></a>
-						</div>
-					</div> -->
 					<?php
 					for ($i = 0; $i < count($data); $i++) {
 						echo "
@@ -82,7 +72,7 @@
 								<br>
 								<a class='h4' href='/Main/quickShopButton/{$data[$i]->item_id}'>{$data[$i]->item_name}</a>
 								<p>\${$data[$i]->item_price}</p>
-								<button  class='btn btn-outline-danger' name='removeItem' style='margin-bottom:2%'>Remove to Wishlist</button>
+								<button  class='btn btn-outline-danger' name='removeItem' style='margin-bottom:2%'>Remove from Wishlist</button>
 							</form> 
 							</div>
 						</div>

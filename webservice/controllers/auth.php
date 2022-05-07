@@ -11,6 +11,7 @@ use Monolog\Handler\FirePHPHandler;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
+// This class is used to handle authentication of a user and generate a token.
 class Auth {
 
     // function that will check if the client is valid in order to generate a token
@@ -36,9 +37,6 @@ class Auth {
             header("WWWW-Authenticate: Error... Client does not exist");
             return;
         }
-
-        // test purposes
-        // echo "hello";
 
         // If the client exist, we now check if the license is still valid. 
         $key = "ali";

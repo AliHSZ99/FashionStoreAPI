@@ -8,8 +8,10 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 
+// This class is used to handle all the error pages.
 class ErrorPages extends \app\core\Controller {
 	
+	// This function is used to handle all the error pages.	
 	public function error401() {
 		// Create the logger
 		$logger = new Logger('my_logger');

@@ -2,9 +2,6 @@
 //routing of the requests happens here
 //maping urls to classes and methods
 
-/*
-multiline comment
-*/
 namespace app\core;
 
 class App{

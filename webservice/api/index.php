@@ -18,6 +18,7 @@
 		}
 	);
 	
+	// API class. 
 	class API{
 		
 		public $Request;
@@ -59,19 +60,8 @@
 			}	
 
 		}
-		
-		// private function get(){
 
-		// 	switch($this->Request->header['accept']){
-
-		// 		case 'application/json':
-		// 			$responsepayload = $this->Controller->getData($_GET['clients']);
-		// 			echo $responsepayload;
-		// 			break;
-		// 		//handle other formats
-		// 	}
-		// }
-
+		// Function for GET requests. 
 		private function get(){
 			$accept = '';
 			if (isset($this->Request->header['accept'])) {
@@ -108,6 +98,7 @@
 
 		}
 
+		// Function for POST requests. 
 		private function post(){
 			$accept = '';
 			if (isset($this->Request->header['accept'])) {

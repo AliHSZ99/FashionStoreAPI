@@ -81,19 +81,7 @@
 						</div>
 					";
 					}
-
-					// echo $data . "asd";
 					?>
-					<!-- <div class="col">
-						<div class="itemBox">
-							<img src="/app/images/jeremie.jpg">
-							<br>
-							<a class="h4" href="/Main/quickShopButton">I Love Mayuri Shirt</a>
-							<p>$69.69</p>
-							
-							<input class='quickShop' type='submit' name='action' value='Quick Shop' />
-						</div>
-					</div> -->
 				</div>
 			</div>
 		</div> 
