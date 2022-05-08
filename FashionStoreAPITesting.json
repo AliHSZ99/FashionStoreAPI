@@ -1,0 +1,457 @@
+{
+	"info": {
+		"_postman_id": "331dff87-2528-45fc-a889-25f3079eefcf",
+		"name": "FashionStoreAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Getting a specific item",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L0F1dGgvaW5kZXgiLCJpYXQiOjE2NTE5NzAzMjksImV4cCI6MTY1NDU5ODMyOX0.A8BshVq6yvwKGbIcJOaCH2XD_Hopv-MsvvNtz5A4rUQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/webservice/api/item/19",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"webservice",
+						"api",
+						"item",
+						"19"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting all the items",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L0F1dGgvaW5kZXgiLCJpYXQiOjE2NTE5NzAzMjksImV4cCI6MTY1NDU5ODMyOX0.A8BshVq6yvwKGbIcJOaCH2XD_Hopv-MsvvNtz5A4rUQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/webservice/api/item/getAll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"webservice",
+						"api",
+						"item",
+						"getAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Populating the database",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L0F1dGgvaW5kZXgiLCJpYXQiOjE2NTE5NzAzMjksImV4cCI6MTY1NDU5ODMyOX0.A8BshVq6yvwKGbIcJOaCH2XD_Hopv-MsvvNtz5A4rUQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/webservice/api/item/populate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"webservice",
+						"api",
+						"item",
+						"populate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Giving a token to a specific user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L0F1dGgvaW5kZXgiLCJpYXQiOjE2NTE5NzAzMjksImV4cCI6MTY1NDU5ODMyOX0.A8BshVq6yvwKGbIcJOaCH2XD_Hopv-MsvvNtz5A4rUQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/webservice/api/auth/index ",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"webservice",
+						"api",
+						"auth",
+						"index "
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adding a client",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L0F1dGgvaW5kZXgiLCJpYXQiOjE2NTE5NzAzMjksImV4cCI6MTY1NDU5ODMyOX0.A8BshVq6yvwKGbIcJOaCH2XD_Hopv-MsvvNtz5A4rUQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/webservice/clients/addClients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"webservice",
+						"clients",
+						"addClients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adding an item to cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L0F1dGgvaW5kZXgiLCJpYXQiOjE2NTE5NzAzMjksImV4cCI6MTY1NDU5ODMyOX0.A8BshVq6yvwKGbIcJOaCH2XD_Hopv-MsvvNtz5A4rUQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "item_id",
+							"value": "19",
+							"type": "text"
+						},
+						{
+							"key": "size",
+							"value": "L",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/webservice/api/cart/addToCart",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"webservice",
+						"api",
+						"cart",
+						"addToCart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove an item to cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L0F1dGgvaW5kZXgiLCJpYXQiOjE2NTE5NzAzMjksImV4cCI6MTY1NDU5ODMyOX0.A8BshVq6yvwKGbIcJOaCH2XD_Hopv-MsvvNtz5A4rUQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "item_id",
+							"value": "19",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/webservice/api/cart/removeFromCart",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"webservice",
+						"api",
+						"cart",
+						"removeFromCart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove all items in the cart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L0F1dGgvaW5kZXgiLCJpYXQiOjE2NTE5NzAzMjksImV4cCI6MTY1NDU5ODMyOX0.A8BshVq6yvwKGbIcJOaCH2XD_Hopv-MsvvNtz5A4rUQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "item_id",
+							"value": "19",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/webservice/api/cart/removeAllFromCart",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"webservice",
+						"api",
+						"cart",
+						"removeAllFromCart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all the items from cart",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L0F1dGgvaW5kZXgiLCJpYXQiOjE2NTE5NzAzMjksImV4cCI6MTY1NDU5ODMyOX0.A8BshVq6yvwKGbIcJOaCH2XD_Hopv-MsvvNtz5A4rUQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "item_id",
+							"value": "19",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "f",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/webservice/api/cart/getAllItems",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"webservice",
+						"api",
+						"cart",
+						"getAllItems"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -11,21 +11,23 @@ use Monolog\Handler\FirePHPHandler;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
+// Class Clients. This class is used to add a newly registered client to the web service database. 
 class Clients {
 
+    // Adding a new client to the database.
     public function addClient() {
-        // echo "hello add client";
         // Create the logger
 		$logger = new Logger('my_logger');
 		// Now add some handlers
 		$logger->pushHandler(new StreamHandler('/xampp/htdocs/webservice/webservice.log', Logger::DEBUG));
 		$logger->pushHandler(new FirePHPHandler());
 
+        // getting contents and headers.
         $theRequest = file_get_contents("php://input");
         $theRequest = json_decode($theRequest, true);
         header("content-type: application/json");
-        // print_r($theRequest);
 
+        // Adding the client. 
         $client = new webservice\model\Client();
         $client->api_key = $theRequest["apikey"];
         $client->email = $theRequest["email"];

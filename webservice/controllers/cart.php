@@ -14,8 +14,11 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+
+    // Class cart. This class is used to allow clients to add items to their cart and remove them. 
     class cart {
 
+        // Method to allow clients to add items to their cart.
         public function addToCart() {
             // Create the logger
             $logger = new Logger('my_logger');
@@ -23,6 +26,7 @@ use Firebase\JWT\Key;
             $logger->pushHandler(new StreamHandler('/xampp/htdocs/webservice/webservice.log', Logger::DEBUG));
             $logger->pushHandler(new FirePHPHandler());
 
+            // getting contents and headers. 
             $info = file_get_contents("php://input");
             $info = json_decode($info, true);
             $client = new \webservice\model\Client();
@@ -30,13 +34,13 @@ use Firebase\JWT\Key;
             $client = $client->getClientByEmail($email);
 
             $headers = apache_request_headers();
-            // var_dump($headers);
 
             $authorizationHeader = $headers["Authorization"];
             $authorizationParts = explode(" ", $authorizationHeader);
             $key = "ali";
             $jwt = $authorizationParts[1];
             header("Content-Type: application/json");
+            // Attempting to decode the token. 
             try {
                 $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
             } catch (Exception $e) {
@@ -44,7 +48,7 @@ use Firebase\JWT\Key;
                 $logger->error("\nInvalid Token was used to add an item to the cart");
             }
 
-            
+            // The responses. 
             $item = new \webservice\model\OrderItems();
             //$info
             if ($item->isItemExist($client->client_id, $info["item_id"])) {
@@ -57,6 +61,7 @@ use Firebase\JWT\Key;
             }
         }
 
+        // Removing an item from the cart.
         public function removeFromCart() {
             // Create the logger
             $logger = new Logger('my_logger');
@@ -64,6 +69,7 @@ use Firebase\JWT\Key;
             $logger->pushHandler(new StreamHandler('/xampp/htdocs/webservice/webservice.log', Logger::DEBUG));
             $logger->pushHandler(new FirePHPHandler());
 
+            // getting contents and headers.
             $info = file_get_contents("php://input");
             $info = json_decode($info, true);
             $client = new \webservice\model\Client();
@@ -71,12 +77,13 @@ use Firebase\JWT\Key;
             $client = $client->getClientByEmail($email);
 
             $headers = apache_request_headers();
-            // var_dump($headers);
 
             $authorizationHeader = $headers["Authorization"];
             $authorizationParts = explode(" ", $authorizationHeader);
             $key = "ali";
             $jwt = $authorizationParts[1];
+            header("Content-Type: application/json");
+            // Attempting to decode the token.
             try {
                 $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
             } catch (Exception $e) {
@@ -84,14 +91,15 @@ use Firebase\JWT\Key;
                 $logger->error("\nInvalid Token was used to delete an item from the cart");
             }
             
+            // The responses.
             $item = new \webservice\model\OrderItems();
-            //$info
             $item->size = $info["size"];
             $item->removeFromCart($client->client_id, $info["item_id"]);
             $logger->info("\nItem has been removed from cart");
             return "Item has been removed from your cart";
         }
 
+        // Removing all items from the cart of a client.
         public function removeAllFromCart() {
             // Create the logger
             $logger = new Logger('my_logger');
@@ -99,18 +107,19 @@ use Firebase\JWT\Key;
             $logger->pushHandler(new StreamHandler('/xampp/htdocs/webservice/webservice.log', Logger::DEBUG));
             $logger->pushHandler(new FirePHPHandler());
 
+            // getting contents and headers.
             $info = file_get_contents("php://input");
             $info = json_decode($info, true);
             $email = $info["email"];
 
             $headers = apache_request_headers();
-            // var_dump($headers);
 
             $authorizationHeader = $headers["Authorization"];
             $authorizationParts = explode(" ", $authorizationHeader);
             $key = "ali";
             $jwt = $authorizationParts[1];
             header('content-type: application/json');
+            //  Attempting to decode the token.
             try {
                 $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
             } catch (Exception $e) {
@@ -123,11 +132,9 @@ use Firebase\JWT\Key;
             $client = new \webservice\model\Client();
             $client = $client->getClientByEmail($email);
             
+            // The responses.
             $item = new \webservice\model\OrderItems();
-            //$info
             $items = new webservice\model\Checkout();
-            // $items = $items->getAllItems($client->client_id);
-            // $items = json_encode($items);
             if (!$items->isItemsExist($client->client_id)) {
                 return "noitems";
             } else {
@@ -145,17 +152,18 @@ use Firebase\JWT\Key;
 
             $logger->info("\nGetting all items in cart");
 
+            // getting contents and headers.
             $info = file_get_contents("php://input");
             $info = json_decode($info, true);
             $email = $info["email"];
     
             $headers = apache_request_headers();
-            // var_dump($headers);
 
             $authorizationHeader = $headers["Authorization"];
             $authorizationParts = explode(" ", $authorizationHeader);
             $key = "ali";
             $jwt = $authorizationParts[1];
+            // Attempting to decode the token.
             try {
                 $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
             } catch (Exception $e) {
@@ -167,6 +175,7 @@ use Firebase\JWT\Key;
 
             header('content-type: application/json');
     
+            // The responses.
             $client = new webservice\model\Client();
             $client = $client->getClientByEmail($email);
             $items = new webservice\model\OrderItems();
@@ -184,7 +193,6 @@ use Firebase\JWT\Key;
                 $addArray["item_price"] = strval($itemObject->item_price);
                 $itemsPayload[] = $addArray;
             }
-            // var_dump($itemsPayload);
             $itemsPayload = json_encode($itemsPayload);
             return $itemsPayload;
         }

@@ -3,6 +3,7 @@ namespace webservice\model;
 
 // require(dirname(__DIR__)."\\core\\Model.php");
 
+// Class OrderItems.
 class Orderitems extends \webservice\core\Model{
     public $guest_id;
 	public $item_id;
@@ -20,6 +21,7 @@ class Orderitems extends \webservice\core\Model{
         return $STMT->fetch();//return the item
     }
 
+    // Get items for a specific client.
     public function getItems($guest_id) {
         $SQL = 'SELECT * FROM checkout WHERE client_id = :client_id';
         $STMT = self::$_connection->prepare($SQL);
@@ -28,18 +30,21 @@ class Orderitems extends \webservice\core\Model{
         return $STMT->fetchAll();//return the item
     }
 
+    // Add item to cart. 
 	public function addToCart($guest_id, $item_id) {
         $SQL = 'INSERT INTO checkout(client_id, item_id, size) VALUES (:client_id, :item_id, :size)';
         $STMT = self::$_connection->prepare($SQL);
         $STMT->execute(['client_id'=>$guest_id, 'item_id'=>$item_id, 'size'=>$this->size]);
     }
 
+    // Remove from cart. 
     public function removeFromCart($guest_id, $item_id) {
         $SQL = 'DELETE FROM checkout WHERE client_id = :client_id AND item_id = :item_id';
         $STMT = self::$_connection->prepare($SQL);
         $STMT->execute(['client_id'=>$guest_id, 'item_id'=>$item_id]);
     }
 
+    // Remove everything from the cart. 
     public function removeAllFromCart($guest_id) {
         $SQL = 'DELETE FROM checkout WHERE client_id = :client_id';
         $STMT = self::$_connection->prepare($SQL);

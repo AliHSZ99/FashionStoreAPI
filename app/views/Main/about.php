@@ -20,6 +20,7 @@
 </head>
 
 <body>
+	<!-- For the navigation bar. -->
     <div>
 		<nav class="navbar navbar-expand-sm" style="background: black;">
 			<div class="container-fluid">
@@ -43,7 +44,7 @@
 							<a class="nav-link text-white h3" href="/Main/settings" style="margin-right: 30px;">Settings</a>
 						</li>
 						<li class="nav-item" style="margin-right: 30px; margin-top: 5px">
-							<a class="nav-link text-white h3" href="/Main/getAllItemsForCart"><ion-icon name="cart-outline"></ion-icon></a>
+							<a class="nav-link text-white h3" href="/Main/cart"><ion-icon name="cart-outline"></ion-icon></a>
 						</li>
 					</ul>
 				</div>
@@ -51,6 +52,7 @@
 		</nav>
 	</div>
 	
+	<!-- The content of the about. -->
 	<center>
 		<div>
 			<img src="/app/images/about.png" style="width: 60%; margin-top: 5%" alt="">

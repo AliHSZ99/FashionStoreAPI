@@ -19,7 +19,7 @@
 
     <!-- For CSS stylesheet -->
 	<link rel="stylesheet" href="/app/styles.css">
-	<title>Sign In</title>
+	<title>Error 401</title>
 </head>
 <body id="loginBody" >
 	<!-- Div for the logo -->

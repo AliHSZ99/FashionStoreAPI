@@ -4,6 +4,7 @@ namespace webservice\model;
 
 require_once(dirname(__DIR__)."\\core\\Model.php");
 
+// Class Item.
 class Item extends \webservice\core\Model {
 
     public $item_id;
@@ -14,6 +15,7 @@ class Item extends \webservice\core\Model {
     public $item_price;
     public $image_url;
 
+    // Insert an item.
     public function insertItem(){
       $SQL = 'INSERT INTO item(item_name, item_type, item_brand, item_color, item_price, image_url) VALUES 
       (:item_name, :item_type, :item_brand, :item_color, :item_price, :image_url)';
@@ -22,6 +24,7 @@ class Item extends \webservice\core\Model {
             'item_color' => $this->item_color, 'item_price' => $this->item_price, 'image_url' => $this->image_url]);
     }
 
+    // Get a specific item. 
     public function get($item_id) {
       $SQL = 'SELECT * FROM item WHERE item_id = :item_id';
       $STMT = self::$_connection->prepare($SQL);
@@ -30,6 +33,7 @@ class Item extends \webservice\core\Model {
       return $STMT->fetch();
     }
 
+    // Get all items.
     public function getItems() {
       $SQl = 'SELECT * FROM item';
       $STMT = self::$_connection->prepare($SQl);

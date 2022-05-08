@@ -1,6 +1,7 @@
 <?php
 namespace webservice\core;
 
+// Class Model. This is the database manager. 
 class Model{
 
 	protected static $_connection = null;

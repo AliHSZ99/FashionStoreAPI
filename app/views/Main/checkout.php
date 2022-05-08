@@ -18,6 +18,7 @@
     <title>Checkout</title>
 </head>
 <body>
+	<!-- For the navigation bar. -->
     <div>
     <nav class="navbar navbar-expand-sm" style="background: black;">
 			<div class="container-fluid">

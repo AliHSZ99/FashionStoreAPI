@@ -1,2 +1,2 @@
 # FashionStoreAPI
-Final project for the Web Services course. 
+Final project for the Web Services course.

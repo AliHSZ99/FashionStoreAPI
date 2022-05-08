@@ -47,7 +47,6 @@ class Main extends \app\core\Controller {
 		// Creating request for all items to be displayed using the token. 
 		$tokenWithBearer = "Bearer ".$guest->token;
 		$request = ['headers' => ['accept' => 'application/json', 'content-type' => 'application/json', 'Authorization' => $tokenWithBearer]];
-		// echo "<br><br><br>". $tokenWithBearer;
 		$response = $client->request('GET', 'item/getAll', $request);
 		$contents = $response->getBody()->getContents();
 		$contents = json_decode($contents);

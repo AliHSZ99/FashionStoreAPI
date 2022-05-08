@@ -142,13 +142,4 @@
 	}
 	
 	$api = new API();
-
-	//echo "client id= ".$api->Request->urlparams; 
-	// echo "</br>Payload: ";
-	// echo $api->Request->payload; 
-	// echo "</br>Request: ";
-	// echo $api->Request->method; 
-	// echo "</br>";
-	// echo "header: ";
-	// print_r($api->Request->header); 
 ?>

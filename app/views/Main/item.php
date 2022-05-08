@@ -16,7 +16,7 @@
 
     <!-- For CSS stylesheet -->
 	<link rel="stylesheet" href="/app/styles.css">
-	<title>FashionStoreAPI</title>
+	<title>Item</title>
 </head>
 
 <body>
@@ -54,6 +54,7 @@
 		</nav>
 	</div>
 
+	<!-- This div is for the content -->
 	<?php
 	echo "
 	<div id='itemContainerBox'>

@@ -11,8 +11,10 @@ use Monolog\Handler\FirePHPHandler;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
+    // Class Item. This class is used to manipulate items. 
     class Item {
 
+        // Get the data for a specific item and send it as a response to the client. 
         function getData($ID) {
             // Create the logger
             $logger = new Logger('my_logger');
@@ -20,17 +22,17 @@ use Firebase\JWT\Key;
             $logger->pushHandler(new StreamHandler('/xampp/htdocs/webservice/webservice.log', Logger::DEBUG));
             $logger->pushHandler(new FirePHPHandler());
 
-            
+            // Get the request headers and contents.
             $info = file_get_contents("php://input");
             $info = json_decode($info, true);
             
             $headers = apache_request_headers();
-            // var_dump($headers);
             
             $authorizationHeader = $headers["Authorization"];
             $authorizationParts = explode(" ", $authorizationHeader);
             $key = "ali";
             $jwt = $authorizationParts[1];
+            // Attempting to decode the token.
             try {
                 $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
             } catch (Exception $e) {
@@ -40,6 +42,7 @@ use Firebase\JWT\Key;
            
             $logger->info("\nGetting data for item with ID: " . $ID);
             
+            // The response.
             header('content-type: application/json');
             $responsepayload = '';
             $item = new \webservice\model\Item();
@@ -55,6 +58,7 @@ use Firebase\JWT\Key;
 
         }
 
+        // Get all items and send them as a response to the client.
         function getAllData() {
             // Create the logger
             $logger = new Logger('my_logger');
@@ -64,8 +68,8 @@ use Firebase\JWT\Key;
 
             $logger->info("\nGetting all data for items");
 
+            // Getting the request headers
             $headers = apache_request_headers();
-            // var_dump($headers);
 		
             $authorizationHeader = $headers["Authorization"];
             $authorizationParts = explode(" ", $authorizationHeader);
@@ -101,6 +105,7 @@ use Firebase\JWT\Key;
             // return $headers;
         }
 
+        // Method to populate our table with items. 
         public function populateItemTable() {
             $curl = curl_init();
     
