@@ -1,5 +1,7 @@
 <?php
 
+	use OpenApi\Annotations as OA;
+
 	//1- Request for a video conversion will be using the URL:
 	// http://localhost/webservice/api/index.php?conversion
 
@@ -17,9 +19,112 @@
 			}
 		}
 	);
+
+// WE HAD TO USE EMPTY METHODS TO DOCUMENT THE API AS WE USE IF STATEMENTS FOR METHODS. 
+/**
+ * @OA\Info(
+ *   title="FashionStoreAPI",
+ *   version="1.0.0",
+ *   @OA\Contact(
+ *     email="api@fashionstoreapi.com"
+ *   )
+ * )
+ */
+	class OpenApi {
+
+	}
 	
 	// API class. 
 	class API{
+/**
+ * @OA\Get(
+ *     path="/webservice/api/item/getAll",
+ *     @OA\Response(response="200", description="Retrieves information all the items from the database.")
+ * )
+ */
+	public function getAll() {
+
+	}
+
+/**
+ * @OA\Get(
+ *     path="/webservice/api/item/populate",
+ *     @OA\Response(response="200", description="Populates the database via the ASOS Api.")
+ * )
+ */
+	public function populate() {
+
+	}
+
+/**
+ * @OA\Get(
+ *     path="/webservice/api/item/item_id",
+ *     @OA\Response(response="200", description="Retrieves information of one specific item.")
+ * )
+ */
+	public function item() {
+
+	}
+
+/**
+ * @OA\Get(
+ *     path="/webservice/api/cart/getAllItems",
+ *     @OA\Response(response="200", description="Retrieves all the items information from the user.")
+ * )
+ */
+	public function getAllItems() {
+
+	}
+
+/**
+ * @OA\Post(
+ *     path="/webservice/api/auth/index",
+ *     @OA\Response(response="200", description="Generates token for user if they do not have one.")
+ * )
+ */
+	public function auth() {
+
+	}
+
+/**
+ * @OA\Post(
+ *     path="/webservice/api/clients/addClient",
+ *     @OA\Response(response="200", description="Adds a client using guest information.")
+ * )
+ */
+	public function addClient() {
+
+	}
+
+/**
+ * @OA\Post(
+ *     path="/webservice/api/cart/addToCart",
+ *     @OA\Response(response="200", description="Add an item to your cart.")
+ * )
+ */
+	public function addToCart() {
+
+	}
+
+/**
+ * @OA\Post(
+ *     path="/webservice/api/cart/removeFromCart",
+ *     @OA\Response(response="200", description="Remove an item from your cart.")
+ * )
+ */
+	public function removeFromCart() {
+
+	}
+
+/**
+ * @OA\Post(
+ *     path="/webservice/api/cart/removeAllFromCart",
+ *     @OA\Response(response="200", description="Remove all items from your cart.")
+ * )
+ */
+	public function removeAllFromCart() {
+
+	}
 		
 		public $Request;
 	
